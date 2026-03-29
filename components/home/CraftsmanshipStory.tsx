@@ -125,7 +125,7 @@ export default function CraftsmanshipStory() {
               Our artisan works alone in a small studio — the same processes used
               for centuries, undisrupted by industrial speed. There is no batch
               production. When you wear a LUMORA piece, you wear something made for
-              you, even if we hadn't met yet.
+              you, even if we hadn&apos;t met yet.
             </p>
 
             {/* Values */}

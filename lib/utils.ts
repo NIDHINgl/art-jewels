@@ -93,12 +93,12 @@ export function getPriceRange(prices: number[]): [number, number] {
 }
 
 // ─── Debounce ─────────────────────────────────────────────────────────────────
-export function debounce<T extends (...args: unknown[]) => unknown>(
-  fn: T,
+export function debounce<TArgs extends unknown[]>(
+  fn: (...args: TArgs) => void,
   delay: number,
-): (...args: Parameters<T>) => void {
+): (...args: TArgs) => void {
   let timer: ReturnType<typeof setTimeout>;
-  return (...args: Parameters<T>) => {
+  return (...args: TArgs) => {
     clearTimeout(timer);
     timer = setTimeout(() => fn(...args), delay);
   };

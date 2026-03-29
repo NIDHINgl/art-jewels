@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { SlidersHorizontal, X } from 'lucide-react';
 import { products } from '@/data/products';
@@ -110,13 +110,12 @@ export default function CollectionsPageClient() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Debounced search
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedSearch = useCallback(
-    debounce((q: string) => {
-      setSearchQuery(q);
-      setVisibleCount(PRODUCTS_PER_PAGE);
-    }, 300),
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((q: string) => {
+        setSearchQuery(q);
+        setVisibleCount(PRODUCTS_PER_PAGE);
+      }, 300),
     [],
   );
 

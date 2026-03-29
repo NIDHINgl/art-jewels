@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import { Search, X } from 'lucide-react';
 import { products } from '@/data/products';
@@ -30,8 +30,8 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const [results, setResults] = useState<Product[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const debouncedSearch = useCallback(
-    debounce((q: string) => setResults(searchProducts(q)), 300),
+  const debouncedSearch = useMemo(
+    () => debounce((q: string) => setResults(searchProducts(q)), 300),
     [],
   );
 
@@ -89,7 +89,6 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
               className="flex-1 bg-transparent font-body text-lg text-obsidian placeholder-obsidian/40 outline-none"
               aria-label="Search products"
               aria-controls="search-results"
-              aria-expanded={results.length > 0}
             />
             <button
               onClick={() => (query ? setQuery('') : onClose())}
