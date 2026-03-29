@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CartItem, Product } from '@/types';
 import { MAX_CART_QUANTITY } from '@/lib/constants';
+import { products } from '@/data/products';
 
 interface CartStore {
   items: CartItem[];
@@ -18,6 +19,23 @@ interface CartStore {
   totalPrice: () => number;
 }
 
+interface PersistedCartState {
+  items?: CartItem[];
+}
+
+const productsById = new Map(products.map((product) => [product.id, product]));
+
+function getCurrentProduct(product: Product): Product {
+  return productsById.get(product.id) ?? product;
+}
+
+function normalizeCartItems(items: CartItem[] = []): CartItem[] {
+  return items.map((item) => ({
+    ...item,
+    product: getCurrentProduct(item.product),
+  }));
+}
+
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
@@ -25,10 +43,11 @@ export const useCartStore = create<CartStore>()(
       isDrawerOpen: false,
 
       addItem: (product, quantity = 1, selectedSize) => {
+        const currentProduct = getCurrentProduct(product);
         set((state) => {
           const existing = state.items.find(
             (item) =>
-              item.product.id === product.id &&
+              item.product.id === currentProduct.id &&
               item.selectedSize === selectedSize,
           );
 
@@ -39,7 +58,7 @@ export const useCartStore = create<CartStore>()(
             );
             return {
               items: state.items.map((item) =>
-                item.product.id === product.id &&
+                item.product.id === currentProduct.id &&
                 item.selectedSize === selectedSize
                   ? { ...item, quantity: newQty }
                   : item,
@@ -50,7 +69,11 @@ export const useCartStore = create<CartStore>()(
           return {
             items: [
               ...state.items,
-              { product, quantity: Math.min(quantity, MAX_CART_QUANTITY), selectedSize },
+              {
+                product: currentProduct,
+                quantity: Math.min(quantity, MAX_CART_QUANTITY),
+                selectedSize,
+              },
             ],
           };
         });
@@ -97,6 +120,13 @@ export const useCartStore = create<CartStore>()(
       name: 'lumora-cart',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({ items: state.items }),
+      merge: (persistedState, currentState) => {
+        const persisted = (persistedState as PersistedCartState | undefined) ?? {};
+        return {
+          ...currentState,
+          items: normalizeCartItems(persisted.items ?? currentState.items),
+        };
+      },
     },
   ),
 );

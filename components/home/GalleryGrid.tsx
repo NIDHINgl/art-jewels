@@ -1,20 +1,21 @@
 'use client';
 
 import React, { useRef } from 'react';
+import Image from 'next/image';
 import { Eye, Instagram } from 'lucide-react';
 import { SELLER_INSTAGRAM } from '@/lib/constants';
 import { useInView } from '@/lib/hooks';
 
 // Masonry gallery with 9 cells in a 3-row, varied layout
 const galleryCells = [
-  { id: 1, span: 'row-span-2', bg: 'from-[hsl(43,25%,20%)] to-[hsl(30,20%,12%)]', label: 'Celestial Moonstone Ring' },
-  { id: 2, span: '', bg: 'from-[hsl(220,20%,22%)] to-[hsl(220,25%,14%)]', label: 'Aurora Pendant' },
-  { id: 3, span: '', bg: 'from-[hsl(350,20%,22%)] to-[hsl(350,25%,14%)]', label: 'Crescent Earrings' },
-  { id: 4, span: '', bg: 'from-[hsl(180,15%,20%)] to-[hsl(200,18%,12%)]', label: 'Woven Gold Bangle' },
-  { id: 5, span: 'col-span-2', bg: 'from-[hsl(60,10%,22%)] to-[hsl(43,15%,13%)]', label: 'Studio Details' },
-  { id: 6, span: '', bg: 'from-[hsl(270,15%,22%)] to-[hsl(280,18%,13%)]', label: 'Tribal Jhumka' },
-  { id: 7, span: 'row-span-2', bg: 'from-[hsl(0,0%,14%)] to-[hsl(0,0%,8%)]', label: 'Serpent Coil Ring' },
-  { id: 8, span: '', bg: 'from-[hsl(34,20%,22%)] to-[hsl(43,18%,14%)]', label: 'Flora Pearl Band' },
+  { id: 1, span: 'row-span-2', src: '/images/PHOTO-2026-03-30-00-55-28.webp', label: 'Temple necklace' },
+  { id: 2, span: '', src: '/images/PHOTO-2026-03-30-00-55-41.webp', label: 'Emerald choker' },
+  { id: 3, span: '', src: '/images/PHOTO-2026-03-30-00-56-04.webp', label: 'Styled necklace set' },
+  { id: 4, span: '', src: '/images/PHOTO-2026-03-30-00-55-52.webp', label: 'Heritage collar' },
+  { id: 5, span: 'col-span-2', src: '/images/PHOTO-2026-03-30-00-56-04.webp', label: 'Life in the atelier' },
+  { id: 6, span: '', src: '/images/PHOTO-2026-03-30-00-55-41.webp', label: 'Green stone detail' },
+  { id: 7, span: 'row-span-2', src: '/images/PHOTO-2026-03-30-00-55-52.webp', label: 'Antique temple work' },
+  { id: 8, span: '', src: '/images/PHOTO-2026-03-30-00-55-28.webp', label: 'Ruby and gold detail' },
 ];
 
 export default function GalleryGrid() {
@@ -57,7 +58,7 @@ export default function GalleryGrid() {
 
         {/* Grid */}
         <div className="grid grid-cols-3 grid-rows-3 gap-3 sm:gap-4 h-[480px] sm:h-[600px] lg:h-[700px]">
-          {galleryCells.map(({ id, span, bg, label }, index) => (
+          {galleryCells.map(({ id, span, src, label }, index) => (
             <div
               key={id}
               className={[
@@ -68,9 +69,16 @@ export default function GalleryGrid() {
               ].join(' ')}
               style={{ transitionDelay: `${index * 60}ms` }}
             >
-              {/* Gradient placeholder */}
+              <Image
+                src={src}
+                alt={label}
+                fill
+                sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+
               <div
-                className={`absolute inset-0 bg-gradient-to-br ${bg} group-hover:scale-105 transition-transform duration-700`}
+                className="absolute inset-0 bg-gradient-to-t from-obsidian/55 via-obsidian/10 to-transparent"
                 aria-hidden="true"
               />
 

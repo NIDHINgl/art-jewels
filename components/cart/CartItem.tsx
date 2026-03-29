@@ -9,27 +9,31 @@ import { useCartStore } from '@/store/cartStore';
 import { formatPrice } from '@/lib/utils';
 import { useToast } from '@/components/ui/Toast';
 import { MAX_CART_QUANTITY } from '@/lib/constants';
+import { products } from '@/data/products';
 
 interface CartItemProps {
   item: CartItemType;
   compact?: boolean;
 }
 
+const productsById = new Map(products.map((product) => [product.id, product]));
+
 export default function CartItem({ item, compact = false }: CartItemProps) {
   const { removeItem, updateQuantity } = useCartStore();
   const { toast } = useToast();
   const [removing, setRemoving] = useState(false);
+  const currentProduct = productsById.get(item.product.id) ?? item.product;
 
   const handleRemove = () => {
     setRemoving(true);
     setTimeout(() => {
-      removeItem(item.product.id);
-      toast('Item removed from cart', 'info', { productName: item.product.name });
+      removeItem(currentProduct.id);
+      toast('Item removed from cart', 'info', { productName: currentProduct.name });
     }, 200);
   };
 
-  const lineTotal = item.product.price * item.quantity;
-  const image = item.product.images[0] ?? null;
+  const lineTotal = currentProduct.price * item.quantity;
+  const image = currentProduct.images[0] ?? null;
 
   if (compact) {
     return (
@@ -41,13 +45,13 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
       >
         {/* Image */}
         <Link
-          href={`/product/${item.product.slug}`}
+          href={`/product/${currentProduct.slug}`}
           className="shrink-0 w-16 h-16 bg-platinum/40 rounded-sm overflow-hidden block"
         >
           {image ? (
             <Image
               src={image}
-              alt={item.product.name}
+              alt={currentProduct.name}
               width={64}
               height={64}
               className="w-full h-full object-cover"
@@ -63,10 +67,10 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
         <div className="flex-1 min-w-0 flex flex-col justify-between">
           <div>
             <Link
-              href={`/product/${item.product.slug}`}
+              href={`/product/${currentProduct.slug}`}
               className="font-body text-sm font-medium text-obsidian hover:text-gold transition-colors line-clamp-2"
             >
-              {item.product.name}
+              {currentProduct.name}
             </Link>
             {item.selectedSize && (
               <p className="font-accent text-xs italic text-obsidian/50 mt-0.5">
@@ -104,7 +108,7 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
         {/* Remove */}
         <button
           onClick={handleRemove}
-          aria-label={`Remove ${item.product.name} from cart`}
+          aria-label={`Remove ${currentProduct.name} from cart`}
           className="shrink-0 self-start text-obsidian/30 hover:text-rose-gold transition-colors mt-0.5"
         >
           <Trash2 size={14} aria-hidden="true" />
@@ -125,13 +129,13 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
       <td className="py-6 pr-4">
         <div className="flex items-start gap-4">
           <Link
-            href={`/product/${item.product.slug}`}
+            href={`/product/${currentProduct.slug}`}
             className="shrink-0 w-20 h-20 bg-platinum/30 rounded-sm overflow-hidden"
           >
             {image ? (
               <Image
                 src={image}
-                alt={item.product.name}
+                alt={currentProduct.name}
                 width={80}
                 height={80}
                 className="w-full h-full object-cover"
@@ -144,10 +148,10 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
           </Link>
           <div>
             <Link
-              href={`/product/${item.product.slug}`}
+              href={`/product/${currentProduct.slug}`}
               className="font-body font-medium text-sm text-obsidian hover:text-gold transition-colors"
             >
-              {item.product.name}
+              {currentProduct.name}
             </Link>
             {item.selectedSize && (
               <p className="font-accent text-xs italic text-obsidian/50 mt-1">
@@ -167,7 +171,7 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
 
       {/* Price */}
       <td className="py-6 pr-4 font-body text-sm text-obsidian/80 whitespace-nowrap">
-        {formatPrice(item.product.price)}
+        {formatPrice(currentProduct.price)}
       </td>
 
       {/* Quantity */}
