@@ -1,0 +1,47 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import type { Product } from '@/types';
+import ProductCard from './ProductCard';
+
+interface RelatedProductsFeedProps {
+  currentProductId: string;
+  category: string;
+}
+
+export default function RelatedProductsFeed({ currentProductId, category }: RelatedProductsFeedProps) {
+  const [related, setRelated] = useState<Product[]>([]);
+
+  useEffect(() => {
+    import('@/lib/api').then(({ getProducts }) =>
+      getProducts().then(products => {
+        setRelated(
+          products
+            .filter(p => p.id !== currentProductId && p.category === category)
+            .slice(0, 6),
+        );
+      }),
+    );
+  }, [currentProductId, category]);
+
+  if (related.length === 0) return null;
+
+  return (
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-pearl" aria-labelledby="related-heading">
+      <div className="max-w-site mx-auto">
+        <h2 id="related-heading" className="font-display text-fluid-h3 text-obsidian mb-8">
+          You May Also Love
+        </h2>
+        <div className="overflow-x-auto -mx-4 sm:mx-0 pb-2">
+          <div className="flex gap-5 px-4 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 min-w-max sm:min-w-0">
+            {related.map((product, index) => (
+              <div key={product.id} className="w-48 sm:w-auto shrink-0 sm:shrink">
+                <ProductCard product={product} index={index} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

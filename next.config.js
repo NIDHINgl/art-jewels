@@ -1,17 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+  compress: true,
+  poweredByHeader: false,
+
   images: {
     formats: ['image/webp', 'image/avif'],
-    remotePatterns: [],
-    // Allow local images in /public
-    unoptimized: false,
+    // Allow images served by the backend (local + production)
+    remotePatterns: [
+      // Local development
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3001',
+        pathname: '/**',
+      },
+      // Production — replace with your actual backend domain
+      // { protocol: 'https', hostname: 'api.yourdomain.com', pathname: '/**' },
+    ],
   },
-  // Enable strict mode for React
-  reactStrictMode: true,
-  // Compress output
-  compress: true,
-  // PoweredBy header removal for security
-  poweredByHeader: false,
 };
 
 module.exports = nextConfig;
