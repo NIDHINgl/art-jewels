@@ -123,7 +123,7 @@ export default function CollectionsPageClient() {
       <div className="bg-pearl border-b border-platinum">
         <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
           <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-2">The Atelier</p>
-          <h1 className="font-display text-fluid-h1 text-obsidian">All Collections</h1>
+          <h1 className="font-display text-fluid-h1 text-obsidian">All Collections({sorted.length})</h1>
         </div>
       </div>
 
