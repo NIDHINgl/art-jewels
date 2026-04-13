@@ -58,6 +58,7 @@ export default function CollectionsPageClient() {
     // Dynamic import so this module is never bundled into the server build
     import('@/lib/api').then(({ getProducts }) =>
       getProducts().then(products => {
+        console.log(`products from API`,products);
         setAllProducts(products);
         setDataLoading(false);
       }),
