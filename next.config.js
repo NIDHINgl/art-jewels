@@ -6,7 +6,9 @@ const nextConfig = {
 
   images: {
     formats: ['image/webp', 'image/avif'],
-    unoptimized: process.env.NEXT_PUBLIC_API_URL?.includes('ngrok') ?? false,
+    unoptimized: process.env.NEXT_PUBLIC_API_URL?.includes('ngrok') ||
+                 process.env.NEXT_PUBLIC_API_URL?.includes('trycloudflare') ||
+                 false,
     remotePatterns: [
       {
         protocol: 'http',
@@ -22,6 +24,11 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '*.ngrok-free.dev',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.trycloudflare.com',
         pathname: '/**',
       },
     ],
