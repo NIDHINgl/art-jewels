@@ -18,8 +18,6 @@ const API_BASE =
 
 const MEDIA_BASE = API_BASE.replace(/\/api$/, '');
 
-console.log(`products from API`, MEDIA_BASE);
-
 // ─── Backend response shapes ──────────────────────────────────────────────────
 interface ApiProductImage {
   id: string;

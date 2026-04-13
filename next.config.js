@@ -6,17 +6,24 @@ const nextConfig = {
 
   images: {
     formats: ['image/webp', 'image/avif'],
-    // Allow images served by the backend (local + production)
+    unoptimized: process.env.NEXT_PUBLIC_API_URL?.includes('ngrok') ?? false,
     remotePatterns: [
-      // Local development
       {
         protocol: 'http',
         hostname: 'localhost',
         port: '3001',
         pathname: '/**',
       },
-      // Production — replace with your actual backend domain
-      // { protocol: 'https', hostname: 'api.yourdomain.com', pathname: '/**' },
+      {
+        protocol: 'https',
+        hostname: '*.ngrok-free.app',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.ngrok-free.dev',
+        pathname: '/**',
+      },
     ],
   },
 };
