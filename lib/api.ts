@@ -18,7 +18,7 @@ const API_BASE =
 
 const MEDIA_BASE = API_BASE.replace(/\/api$/, '');
 
-console.log(`products from API`,MEDIA_BASE);
+console.log(`products from API`, MEDIA_BASE);
 
 // ─── Backend response shapes ──────────────────────────────────────────────────
 interface ApiProductImage {
@@ -116,7 +116,10 @@ async function apiFetch<T>(path: string, revalidate = 60): Promise<T | null> {
   try {
     const res = await fetch(`${API_BASE}${path}`, {
       next: { revalidate },
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
     });
     if (!res.ok) throw new Error(`API ${res.status}: ${res.statusText}`);
     const json = await res.json();
