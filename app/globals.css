@@ -48,6 +48,19 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Smoother inertial scrolling on trackpads */
+  scroll-padding-top: 5rem;
+}
+
+/* Smoother image paint — hint the compositor on large gallery/card images */
+.smooth-paint img {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Hide site navbar while a lightbox is open so its controls don't clash */
+body.lightbox-open > header {
+  display: none !important;
 }
 
 body {
@@ -182,23 +195,7 @@ body {
   animation: bounceScale 300ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
 
-/* ─── Card hover effect ─────────────────────────────────────────────────────── */
-.product-card-image-primary {
-  transition: opacity var(--transition-base), transform var(--transition-slow);
-}
-
-.product-card-image-secondary {
-  opacity: 0;
-  transition: opacity var(--transition-base);
-}
-
-.product-card:hover .product-card-image-primary {
-  opacity: 0;
-}
-
-.product-card:hover .product-card-image-secondary {
-  opacity: 1;
-}
+/* Product card image stack handles its own hover cycling via Framer Motion */
 
 /* ─── Price Range Slider ────────────────────────────────────────────────────── */
 .range-slider {
@@ -252,6 +249,49 @@ body {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ─── Neon Checkbox Animations ──────────────────────────────────────────────── */
+@keyframes neonBorderFlow1 {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(200%); }
+}
+@keyframes neonBorderFlow2 {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(200%); }
+}
+@keyframes neonBorderFlow3 {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-200%); }
+}
+@keyframes neonBorderFlow4 {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-200%); }
+}
+@keyframes neonParticleExplosion {
+  0%   { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+  20%  { opacity: 1; }
+  100% {
+    transform: translate(
+      calc(-50% + var(--nx, 20px)),
+      calc(-50% + var(--ny, 20px))
+    ) scale(0);
+    opacity: 0;
+  }
+}
+@keyframes neonRingPulse {
+  0%   { transform: scale(0); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+@keyframes neonSparkFlash {
+  0% {
+    transform: rotate(var(--nr, 0deg)) translateX(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--nr, 0deg)) translateX(30px) scale(0);
+    opacity: 0;
+  }
 }
 
 /* ─── Reduced Motion ────────────────────────────────────────────────────────── */

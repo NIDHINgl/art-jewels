@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+import { CinematicFooter } from '@/components/ui/motion-footer';
 import CartDrawer from '@/components/cart/CartDrawer';
 import ToastContainer from '@/components/ui/Toast';
 import ScrollToTop from '@/components/ui/ScrollToTop';
@@ -51,7 +51,7 @@ export default function RootLayout({
           {children}
         </main>
 
-        <Footer />
+        <CinematicFooter />
 
         {/* Global overlays */}
         <CartDrawer />

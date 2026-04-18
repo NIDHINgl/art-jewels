@@ -8,6 +8,7 @@ import { generateWhatsAppURL, copyToClipboard } from '@/lib/utils';
 import { SELLER_WHATSAPP } from '@/lib/constants';
 import Modal from '@/components/ui/Modal';
 import Button from '@/components/ui/Button';
+import { PrestigeButton } from '@/components/ui/prestige-button';
 
 interface CheckoutFormProps {
   isOpen: boolean;
@@ -223,16 +224,14 @@ export default function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
             />
           </div>
 
-          <Button
+          <PrestigeButton
             type="submit"
-            variant="primary"
-            size="lg"
-            fullWidth
-            className="mt-2 gap-2"
-          >
-            <MessageCircle size={18} aria-hidden="true" />
-            Send Order via WhatsApp
-          </Button>
+            icon={<MessageCircle />}
+            title="Send Order via WhatsApp"
+            subtitle="Our artisan will confirm your pieces directly"
+            size="md"
+            className="w-full mt-2"
+          />
 
           <p className="font-accent text-xs italic text-center text-obsidian/40">
             Your cart and order details will be forwarded to our WhatsApp. No payment collected here.

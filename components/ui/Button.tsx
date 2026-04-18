@@ -50,7 +50,8 @@ export default function Button({
       className={[
         'inline-flex items-center justify-center gap-2',
         'font-body font-medium tracking-wide rounded-sm',
-        'transition-all duration-200',
+        'transition-[background-color,color,transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory',
         'disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100',
         variantClasses[variant],
         sizeClasses[size],

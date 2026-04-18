@@ -79,27 +79,27 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
             )}
           </div>
           <div className="flex items-center justify-between mt-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               <button
                 onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                 aria-label="Decrease quantity"
                 disabled={item.quantity <= 1}
-                className="w-6 h-6 border border-platinum-dark rounded-sm flex items-center justify-center text-obsidian/60 hover:border-gold hover:text-gold disabled:opacity-30 transition-all"
+                className="relative w-8 h-8 min-w-[32px] flex items-center justify-center text-obsidian/60 hover:text-gold disabled:opacity-30 transition-colors before:content-[''] before:absolute before:inset-1 before:rounded-sm before:border before:border-platinum-dark hover:before:border-gold after:content-[''] after:absolute after:inset-[-6px]"
               >
-                <Minus size={10} aria-hidden="true" />
+                <Minus size={11} aria-hidden="true" />
               </button>
-              <span className="font-body text-sm w-5 text-center">{item.quantity}</span>
+              <span className="font-body text-sm w-6 text-center tabular-nums">{item.quantity}</span>
               <button
                 onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                 aria-label="Increase quantity"
                 disabled={item.quantity >= MAX_CART_QUANTITY}
                 title={item.quantity >= MAX_CART_QUANTITY ? 'Maximum 10 per item' : undefined}
-                className="w-6 h-6 border border-platinum-dark rounded-sm flex items-center justify-center text-obsidian/60 hover:border-gold hover:text-gold disabled:opacity-30 transition-all"
+                className="relative w-8 h-8 min-w-[32px] flex items-center justify-center text-obsidian/60 hover:text-gold disabled:opacity-30 transition-colors before:content-[''] before:absolute before:inset-1 before:rounded-sm before:border before:border-platinum-dark hover:before:border-gold after:content-[''] after:absolute after:inset-[-6px]"
               >
-                <Plus size={10} aria-hidden="true" />
+                <Plus size={11} aria-hidden="true" />
               </button>
             </div>
-            <span className="font-body text-sm font-semibold text-obsidian">
+            <span className="font-body text-sm font-semibold text-obsidian tabular-nums">
               {formatPrice(lineTotal)}
             </span>
           </div>
@@ -109,7 +109,7 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
         <button
           onClick={handleRemove}
           aria-label={`Remove ${currentProduct.name} from cart`}
-          className="shrink-0 self-start text-obsidian/30 hover:text-rose-gold transition-colors mt-0.5"
+          className="shrink-0 self-start w-9 h-9 flex items-center justify-center text-obsidian/40 hover:text-rose-gold hover:bg-rose-gold/10 rounded-sm transition-colors -mr-1.5 -mt-1.5"
         >
           <Trash2 size={14} aria-hidden="true" />
         </button>
@@ -181,7 +181,7 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
             onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
             aria-label="Decrease quantity"
             disabled={item.quantity <= 1}
-            className="w-8 h-8 border border-platinum-dark rounded-sm flex items-center justify-center text-obsidian/60 hover:border-gold hover:text-gold disabled:opacity-30 transition-all"
+            className="w-9 h-9 border border-platinum-dark rounded-sm flex items-center justify-center text-obsidian/60 hover:border-gold hover:text-gold disabled:opacity-30 transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
           >
             <Minus size={12} aria-hidden="true" />
           </button>
@@ -193,7 +193,7 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
             aria-label="Increase quantity"
             disabled={item.quantity >= MAX_CART_QUANTITY}
             title={item.quantity >= MAX_CART_QUANTITY ? 'Maximum 10 per item' : undefined}
-            className="w-8 h-8 border border-platinum-dark rounded-sm flex items-center justify-center text-obsidian/60 hover:border-gold hover:text-gold disabled:opacity-30 transition-all"
+            className="w-9 h-9 border border-platinum-dark rounded-sm flex items-center justify-center text-obsidian/60 hover:border-gold hover:text-gold disabled:opacity-30 transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
           >
             <Plus size={12} aria-hidden="true" />
           </button>

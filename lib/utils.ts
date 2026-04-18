@@ -1,5 +1,12 @@
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { CURRENCY_LOCALE, CURRENCY_SYMBOL, SELLER_WHATSAPP } from './constants';
 import type { CartItem, CheckoutFormData } from '@/types';
+
+// ─── Class name merger (shadcn convention) ───────────────────────────────────
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs));
+}
 
 // ─── Currency Formatting ──────────────────────────────────────────────────────
 export function formatPrice(amount: number): string {

@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { X } from 'lucide-react';
-import type { FilterState, Category, Material, Style } from '@/types';
+import type { FilterState } from '@/types';
 import { formatLabel, formatPrice } from '@/lib/utils';
+import { FilterBadge } from '@/components/ui/filter-badge';
 
 interface FilterChipsProps {
   filters: FilterState;
@@ -12,17 +12,26 @@ interface FilterChipsProps {
   onClearAll: () => void;
 }
 
+interface Chip {
+  key: string;
+  label: string;
+  value: string;
+  onRemove: () => void;
+}
+
 export default function FilterChips({
   filters,
   defaultPriceRange,
   onFilterChange,
   onClearAll,
 }: FilterChipsProps) {
-  const chips: Array<{ label: string; onRemove: () => void }> = [];
+  const chips: Chip[] = [];
 
   filters.categories.forEach((cat) =>
     chips.push({
-      label: formatLabel(cat),
+      key: `cat-${cat}`,
+      label: 'Category',
+      value: formatLabel(cat),
       onRemove: () =>
         onFilterChange({
           ...filters,
@@ -33,7 +42,9 @@ export default function FilterChips({
 
   filters.materials.forEach((mat) =>
     chips.push({
-      label: formatLabel(mat),
+      key: `mat-${mat}`,
+      label: 'Material',
+      value: formatLabel(mat),
       onRemove: () =>
         onFilterChange({
           ...filters,
@@ -44,7 +55,9 @@ export default function FilterChips({
 
   filters.styles.forEach((style) =>
     chips.push({
-      label: formatLabel(style),
+      key: `style-${style}`,
+      label: 'Style',
+      value: formatLabel(style),
       onRemove: () =>
         onFilterChange({
           ...filters,
@@ -59,7 +72,9 @@ export default function FilterChips({
 
   if (priceChanged) {
     chips.push({
-      label: `${formatPrice(filters.priceRange[0])} – ${formatPrice(filters.priceRange[1])}`,
+      key: 'price',
+      label: 'Price',
+      value: `${formatPrice(filters.priceRange[0])} – ${formatPrice(filters.priceRange[1])}`,
       onRemove: () =>
         onFilterChange({ ...filters, priceRange: defaultPriceRange }),
     });
@@ -67,7 +82,9 @@ export default function FilterChips({
 
   if (filters.inStockOnly) {
     chips.push({
-      label: 'In Stock',
+      key: 'stock',
+      label: 'Availability',
+      value: 'In Stock Only',
       onRemove: () => onFilterChange({ ...filters, inStockOnly: false }),
     });
   }
@@ -75,27 +92,25 @@ export default function FilterChips({
   if (chips.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap items-center gap-2" role="list" aria-label="Active filters">
-      {chips.map(({ label, onRemove }) => (
-        <div
-          key={label}
-          role="listitem"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-champagne/60 border border-gold/20 rounded-sm"
-        >
-          <span className="font-accent text-xs text-obsidian/80">{label}</span>
-          <button
-            onClick={onRemove}
-            aria-label={`Remove filter: ${label}`}
-            className="text-obsidian/40 hover:text-obsidian transition-colors"
-          >
-            <X size={12} aria-hidden="true" />
-          </button>
+    <div
+      className="flex flex-wrap items-center gap-2"
+      role="list"
+      aria-label="Active filters"
+    >
+      {chips.map(({ key, label, value, onRemove }) => (
+        <div key={key} role="listitem">
+          <FilterBadge
+            variant="pill"
+            label={label}
+            value={value}
+            onRemove={onRemove}
+          />
         </div>
       ))}
 
       <button
         onClick={onClearAll}
-        className="font-accent text-xs text-rose-gold hover:text-rose-gold/70 transition-colors underline underline-offset-2"
+        className="font-accent text-xs text-rose-gold hover:text-rose-gold/70 transition-colors underline underline-offset-2 ml-1"
       >
         Clear all
       </button>

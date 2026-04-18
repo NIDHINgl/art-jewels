@@ -124,6 +124,9 @@ async function apiFetch<T>(path: string, revalidate = 60): Promise<T | null> {
     return json.data as T;
   } catch (err) {
     if (typeof window === 'undefined') {
+      // Server-side fetch failed — surface it in build/runtime logs so we know
+      // a CMS outage happened, without breaking the static fallback.
+      // eslint-disable-next-line no-console
       console.warn(`[API] ${path} failed, using static fallback:`, (err as Error).message);
     }
     return null;

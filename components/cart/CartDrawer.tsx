@@ -61,7 +61,7 @@ export default function CartDrawer() {
           <button
             onClick={closeDrawer}
             aria-label="Close cart"
-            className="w-9 h-9 flex items-center justify-center rounded-sm text-obsidian/50 hover:text-obsidian hover:bg-platinum/60 transition-all"
+            className="w-11 h-11 flex items-center justify-center rounded-sm text-obsidian/60 hover:text-obsidian hover:bg-platinum/60 transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
           >
             <X size={18} aria-hidden="true" />
           </button>

@@ -187,7 +187,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           aria-pressed={wishlisted}
           className={[
             'w-14 h-14 border rounded-sm flex items-center justify-center shrink-0',
-            'transition-all duration-200 hover:scale-105 active:scale-95',
+            'transition-colors duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 active:scale-95',
             wishlisted
               ? 'border-rose-gold bg-rose-gold/5 text-rose-gold'
               : 'border-platinum-dark text-obsidian/40 hover:border-rose-gold hover:text-rose-gold',

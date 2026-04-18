@@ -9,6 +9,7 @@ import {
   BRAND_NAME,
 } from '@/lib/constants';
 import Button from '@/components/ui/Button';
+import { PrestigeButton } from '@/components/ui/prestige-button';
 
 export default function ContactPageClient() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -58,37 +59,38 @@ export default function ContactPageClient() {
           {/* Left — info + WhatsApp CTA */}
           <div className="flex flex-col gap-10">
             {/* WhatsApp primary CTA */}
-            <div className="bg-obsidian rounded-sm p-8 text-center">
-              <div className="w-14 h-14 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MessageCircle
-                  size={28}
-                  className="text-green-400"
-                  aria-hidden="true"
-                />
-              </div>
-              <h2 className="font-display text-xl text-white mb-3">
+            <div className="bg-obsidian rounded-sm p-6 sm:p-8 text-center">
+              <p className="font-accent text-xs tracking-[0.4em] uppercase text-gold mb-2">
+                Direct Line
+              </p>
+              <h2 className="font-display text-xl sm:text-2xl text-white mb-3">
                 Talk to us on WhatsApp
               </h2>
-              <p className="font-accent text-sm italic text-white/50 mb-6 leading-relaxed">
+              <p className="font-accent text-sm italic text-white/55 mb-6 leading-relaxed max-w-sm mx-auto">
                 The fastest way to reach us. We reply within a few hours during
                 business hours — often sooner.
               </p>
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white font-body font-medium text-sm hover:bg-green-400 transition-colors"
-              >
-                <MessageCircle size={16} aria-hidden="true" />
-                Open WhatsApp Chat
-              </a>
+              <PrestigeButton
+                type="button"
+                onClick={() => window.open(whatsappUrl, '_blank', 'noopener,noreferrer')}
+                icon={<MessageCircle />}
+                title="Open WhatsApp Chat"
+                subtitle="We reply personally within a few hours"
+                size="md"
+                className="w-full sm:w-auto mx-auto"
+              />
             </div>
 
             {/* Other contact methods */}
             <div className="flex flex-col gap-5">
-              <h2 className="font-display text-xl text-obsidian">
-                Other Ways to Reach Us
-              </h2>
+              <div>
+                <p className="font-accent text-xs tracking-[0.4em] uppercase text-gold mb-1.5">
+                  Elsewhere
+                </p>
+                <h2 className="font-display text-xl text-obsidian">
+                  Other Ways to Reach Us
+                </h2>
+              </div>
               {contactLinks.map(({ icon: Icon, label, value, href, hoverColor }) => (
                 <a
                   key={label}
@@ -243,16 +245,14 @@ export default function ContactPageClient() {
                   />
                 </div>
 
-                <Button
+                <PrestigeButton
                   type="submit"
-                  variant="primary"
-                  size="lg"
-                  fullWidth
-                  className="gap-2"
-                >
-                  <Send size={16} aria-hidden="true" />
-                  Send Message
-                </Button>
+                  icon={<Send />}
+                  title="Send Message"
+                  subtitle="We reply personally within one day"
+                  size="md"
+                  className="w-full"
+                />
               </form>
             )}
           </div>

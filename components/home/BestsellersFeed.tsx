@@ -48,7 +48,11 @@ export default function BestsellersFeed({ products }: BestsellersFeedProps) {
             className="inline-flex items-center gap-2 font-accent text-sm tracking-wider text-gold hover:text-gold-light transition-colors group shrink-0"
           >
             View all
-            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+            <ArrowRight
+              size={14}
+              className="group-hover:translate-x-1 transition-transform"
+              aria-hidden="true"
+            />
           </Link>
         </div>
 

@@ -38,9 +38,9 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-obsidian-deep via-obsidian to-[hsl(20,8%,10%)]" aria-hidden="true" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] rounded-full bg-gold/5 blur-[100px]" aria-hidden="true" />
 
-        {/* Decorative gem */}
-        <div className="absolute top-8 right-12 w-24 h-24 border border-gold/10 rotate-45" aria-hidden="true" />
-        <div className="absolute bottom-8 left-8 w-12 h-12 border border-gold/15 rotate-45" aria-hidden="true" />
+        {/* Decorative gems — scale + reposition on small screens so they don't collide */}
+        <div className="absolute top-4 right-4 sm:top-8 sm:right-12 w-16 h-16 sm:w-24 sm:h-24 border border-gold/10 rotate-45 pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 w-8 h-8 sm:w-12 sm:h-12 border border-gold/15 rotate-45 pointer-events-none" aria-hidden="true" />
 
         <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center">
           <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-4">

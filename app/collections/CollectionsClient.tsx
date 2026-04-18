@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { SlidersHorizontal, X } from 'lucide-react';
 import type { FilterState, SortOption, Category, Material, Style, Product } from '@/types';
 import { getPriceRange, debounce } from '@/lib/utils';
@@ -12,6 +12,7 @@ import FilterChips from '@/components/filters/FilterChips';
 import SortDropdown from '@/components/filters/SortDropdown';
 import Button from '@/components/ui/Button';
 import { ProductCardSkeleton } from '@/components/ui/Skeleton';
+import { GlowingSearchBar } from '@/components/ui/animated-glowing-search-bar';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function sortProducts(list: Product[], sort: SortOption): Product[] {
@@ -47,6 +48,8 @@ function applyFilters(list: Product[], filters: FilterState, query: string): Pro
 
 export default function CollectionsPageClient() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const initialCategory = searchParams.get('category') as Category | null;
   const initialQuery    = searchParams.get('q') ?? '';
 
@@ -108,9 +111,22 @@ export default function CollectionsPageClient() {
   };
 
   const handleClearAll = () => {
-    setFilters({ ...DEFAULT_FILTERS, priceRange: defaultPriceRange });
-    setSearchInput(''); setSearchQuery('');
+    // Truly empty — do NOT spread DEFAULT_FILTERS because that carries the
+    // URL-derived initial category (e.g. came in via ?category=earrings).
+    setFilters({
+      categories: [],
+      materials: [],
+      styles: [],
+      priceRange: defaultPriceRange,
+      inStockOnly: false,
+    });
+    setSearchInput('');
+    setSearchQuery('');
     setVisibleCount(PRODUCTS_PER_PAGE);
+    // Strip query params from the URL so a refresh doesn't reapply them
+    if (searchParams.toString()) {
+      router.replace(pathname, { scroll: false });
+    }
   };
 
   const handleFilterChange = (f: FilterState) => {
@@ -128,25 +144,31 @@ export default function CollectionsPageClient() {
       </div>
 
       <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        {/* Search + sort */}
+        {/* Search + sort — all controls locked to the same 48px height */}
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
-          <div className="relative flex-1">
-            <label htmlFor="collection-search" className="sr-only">Search pieces</label>
-            <input id="collection-search" type="search" value={searchInput}
-              onChange={e => setSearchInput(e.target.value)}
-              placeholder="Search by name, material, style…"
-              className="w-full pl-4 pr-10 py-3 border border-platinum-dark bg-ivory font-body text-sm text-obsidian placeholder-obsidian/40 outline-none focus:border-gold transition-colors rounded-sm" />
-            {searchInput && (
-              <button onClick={() => { setSearchInput(''); setSearchQuery(''); }}
-                aria-label="Clear search"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-obsidian/40 hover:text-obsidian transition-colors">
-                <X size={16} />
-              </button>
-            )}
-          </div>
+          <label htmlFor="collection-search" className="sr-only">Search pieces</label>
+          <GlowingSearchBar
+            id="collection-search"
+            value={searchInput}
+            onChange={(v) => {
+              setSearchInput(v);
+              if (v === '') setSearchQuery('');
+            }}
+            cyclePlaceholders={[
+              'Try "temple necklace"',
+              'Try "emerald rings"',
+              'Try "rose-gold bracelets"',
+              'Try "minimalist earrings"',
+              'Try "bespoke custom"',
+            ]}
+            ariaLabel="Search pieces"
+            height={48}
+          />
           <SortDropdown value={sort} onChange={setSort} />
-          <button onClick={() => setSidebarOpen(true)}
-            className="lg:hidden flex items-center gap-2 px-4 py-3 border border-platinum-dark text-sm font-body text-obsidian/70 hover:border-gold hover:text-gold transition-all rounded-sm">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="lg:hidden h-12 flex items-center gap-2 px-4 border border-platinum-dark text-sm font-body text-obsidian/70 hover:border-gold hover:text-gold transition-all rounded-sm"
+          >
             <SlidersHorizontal size={16} />
             Filters
           </button>
