@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Send, X, ArrowRight, Sparkles } from 'lucide-react';
+import { Search, Send, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { formatPrice, debounce } from '@/lib/utils';
 import type { Product } from '@/types';
@@ -27,13 +27,27 @@ function searchProducts(products: Product[], query: string): Product[] {
   );
 }
 
-// Quick-action suggestions shown when the bar is focused but empty
-const QUICK_SUGGESTIONS = [
-  { label: 'Gold earrings', href: '/collections?category=earrings&q=gold' },
-  { label: 'Silver rings',  href: '/collections?category=rings&q=silver' },
-  { label: 'Temple necklaces', href: '/collections?category=necklaces&q=temple' },
-  { label: 'Custom bespoke', href: '/collections?category=custom' },
-];
+/**
+ * Pick a small set of "popular" products to surface when the search bar is
+ * focused but empty. Derived from the live catalog — bestsellers first, then
+ * featured, then falls back to the newest in-stock pieces. This way the
+ * empty-state suggestions always reflect what's actually in the store.
+ */
+function getPopularPicks(catalog: Product[], limit = 5): Product[] {
+  if (!catalog.length) return [];
+  const inStock = catalog.filter((p) => p.inStock);
+  const pool = inStock.length ? inStock : catalog;
+  const bestsellers = pool.filter((p) => p.isBestseller);
+  if (bestsellers.length >= limit) return bestsellers.slice(0, limit);
+  const featured = pool.filter((p) => p.isFeatured && !p.isBestseller);
+  const picked = [...bestsellers, ...featured];
+  if (picked.length >= limit) return picked.slice(0, limit);
+  // Pad with newest remaining pieces
+  const rest = pool
+    .filter((p) => !picked.includes(p))
+    .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+  return [...picked, ...rest].slice(0, limit);
+}
 
 export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const [query, setQuery] = useState('');
@@ -58,6 +72,8 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   useEffect(() => {
     debouncedSearch(query);
   }, [query, debouncedSearch]);
+
+  const popular = useMemo(() => getPopularPicks(catalog, 5), [catalog]);
 
   useEffect(() => {
     if (isOpen) {
@@ -196,37 +212,58 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       <p className="font-body font-semibold text-xs tracking-[0.25em] uppercase text-obsidian/60 mb-3 px-2">
                         Popular
                       </p>
-                      <ul className="flex flex-col gap-1" role="list">
-                        {QUICK_SUGGESTIONS.map((s) => (
-                          <motion.li
-                            key={s.label}
-                            variants={itemVariants}
-                            layout
-                          >
-                            <Link
-                              href={s.href}
-                              onClick={onClose}
-                              className="flex items-center justify-between px-3 py-2.5 rounded-sm hover:bg-champagne/50 transition-colors group"
+                      {popular.length === 0 ? (
+                        <p className="py-6 text-center font-accent italic text-sm text-obsidian/50">
+                          Loading pieces from the atelier…
+                        </p>
+                      ) : (
+                        <ul className="flex flex-col gap-1" role="list">
+                          {popular.map((product) => (
+                            <motion.li
+                              key={product.id}
+                              variants={itemVariants}
+                              layout
                             >
-                              <span className="flex items-center gap-3">
-                                <Sparkles
-                                  size={14}
-                                  className="text-gold shrink-0"
-                                  aria-hidden="true"
-                                />
-                                <span className="font-accent text-sm text-obsidian/80 group-hover:text-obsidian">
-                                  {s.label}
-                                </span>
-                              </span>
-                              <ArrowRight
-                                size={14}
-                                className="text-obsidian/30 group-hover:text-gold group-hover:translate-x-1 transition-all"
-                                aria-hidden="true"
-                              />
-                            </Link>
-                          </motion.li>
-                        ))}
-                      </ul>
+                              <Link
+                                href={`/product/${product.slug}`}
+                                onClick={onClose}
+                                className="flex items-center gap-3 py-2.5 px-2 rounded-sm hover:bg-champagne/50 transition-colors group"
+                              >
+                                <div className="w-11 h-11 bg-platinum rounded-sm shrink-0 flex items-center justify-center overflow-hidden relative">
+                                  {product.images[0] ? (
+                                    <Image
+                                      src={product.images[0]}
+                                      alt={product.name}
+                                      fill
+                                      sizes="44px"
+                                      className="object-cover"
+                                    />
+                                  ) : (
+                                    <div className="w-8 h-8 bg-champagne/60 rounded-sm shimmer" />
+                                  )}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="font-body text-sm font-medium text-obsidian group-hover:text-gold transition-colors truncate">
+                                    {product.name}
+                                  </p>
+                                  <p className="font-accent text-xs text-obsidian/50 capitalize truncate">
+                                    {product.isBestseller
+                                      ? 'Bestseller'
+                                      : product.isFeatured
+                                      ? 'Featured'
+                                      : product.category}
+                                    {' · '}
+                                    {product.material.join(', ')}
+                                  </p>
+                                </div>
+                                <p className="font-body font-semibold text-sm text-gold shrink-0">
+                                  {formatPrice(product.price)}
+                                </p>
+                              </Link>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      )}
                     </motion.div>
                   ) : results.length === 0 ? (
                     <motion.p
