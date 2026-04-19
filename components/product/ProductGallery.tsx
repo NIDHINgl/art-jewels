@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { ZoomIn, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,8 +17,14 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
   const [active, setActive] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [slideDirection, setSlideDirection] = useState<1 | -1>(1);
+  const [mounted, setMounted] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+
+  // Mark mounted so the portal only renders client-side (avoids SSR mismatch)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const primary = images[active] ?? null;
 
@@ -150,7 +157,11 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
         )}
       </div>
 
-      {/* ─── Lightbox with enter + exit animations ─── */}
+      {/* ─── Lightbox with enter + exit animations ───
+           Portal into document.body so no ancestor (position:sticky grid cell,
+           framer-motion transforms, etc.) can trap the fixed overlay and let
+           ProductInfo content bleed through. */}
+      {mounted && createPortal(
       <AnimatePresence>
         {lightboxOpen && primary && (
           <motion.div
@@ -301,7 +312,9 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
             )}
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body,
+      )}
     </>
   );
 }
