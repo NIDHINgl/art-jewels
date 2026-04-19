@@ -1,14 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ShoppingBag, Heart, Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { ShoppingBag, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Product } from '@/types';
 import { formatPrice, formatLabel } from '@/lib/utils';
 import { useCartStore } from '@/store/cartStore';
 import { useWishlistStore } from '@/store/wishlistStore';
 import { useToast } from '@/components/ui/Toast';
 import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
+import { PrestigeButton } from '@/components/ui/prestige-button';
+import {
+  AnimatedHeart,
+  AnimatedSuccess,
+} from '@/components/ui/animated-state-icons';
 import { MAX_CART_QUANTITY } from '@/lib/constants';
 
 interface ProductInfoProps {
@@ -59,15 +63,26 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         {product.isBestseller && product.inStock && <Badge variant="bestseller">Bestseller</Badge>}
       </div>
 
+      {/* Category eyebrow */}
+      <p className="font-accent text-xs tracking-[0.4em] uppercase text-gold -mb-3">
+        {product.category}
+      </p>
+
       {/* Name */}
       <h1 className="font-display text-fluid-h1 text-obsidian leading-tight">
         {product.name}
       </h1>
 
-      {/* Price */}
-      <p className="font-body text-2xl font-semibold text-obsidian">
-        {formatPrice(product.price)}
-      </p>
+      {/* Price with decorative rule */}
+      <div className="flex items-center gap-4">
+        <p className="font-body text-2xl font-semibold text-obsidian tabular-nums">
+          {formatPrice(product.price)}
+        </p>
+        <span
+          className="flex-1 h-px bg-gradient-to-r from-gold/40 via-platinum to-transparent"
+          aria-hidden="true"
+        />
+      </div>
 
       {/* Short description */}
       <p className="font-accent text-base italic text-obsidian/70 leading-relaxed border-l-2 border-gold/30 pl-4">
@@ -159,16 +174,29 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
       {/* Add to cart + wishlist */}
       <div className="flex gap-3">
-        <Button
-          variant={added ? 'ghost' : 'primary'}
-          size="lg"
-          fullWidth
+        <PrestigeButton
+          type="button"
           onClick={handleAddToCart}
           disabled={!product.inStock}
-          className={[
-            'gap-2 transition-all',
-            added ? 'bg-green-600/10 text-green-700 border border-green-600/30' : '',
-          ].join(' ')}
+          icon={
+            added ? (
+              <AnimatedSuccess size={20} done color="currentColor" />
+            ) : (
+              <ShoppingBag />
+            )
+          }
+          title={
+            !product.inStock ? 'Out of Stock' : added ? 'Added to Cart' : 'Add to Cart'
+          }
+          subtitle={
+            !product.inStock
+              ? 'Temporarily unavailable'
+              : added
+              ? 'Piece is in your cart'
+              : 'Save this piece to your cart'
+          }
+          size="md"
+          className="flex-1"
           aria-label={
             !product.inStock
               ? 'Out of stock'
@@ -176,24 +204,30 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               ? 'Added to cart'
               : `Add ${product.name} to cart`
           }
-        >
-          {added ? <Check size={18} aria-hidden="true" /> : <ShoppingBag size={18} aria-hidden="true" />}
-          {!product.inStock ? 'Out of Stock' : added ? 'Added to Cart' : 'Add to Cart'}
-        </Button>
+        />
 
         <button
           onClick={handleWishlist}
-          aria-label={wishlisted ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
+          aria-label={
+            wishlisted
+              ? `Remove ${product.name} from wishlist`
+              : `Save ${product.name} to wishlist`
+          }
           aria-pressed={wishlisted}
           className={[
-            'w-14 h-14 border rounded-sm flex items-center justify-center shrink-0',
+            'w-14 h-14 sm:w-16 sm:h-16 border rounded-sm flex items-center justify-center shrink-0',
             'transition-colors duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 active:scale-95',
             wishlisted
-              ? 'border-rose-gold bg-rose-gold/5 text-rose-gold'
-              : 'border-platinum-dark text-obsidian/40 hover:border-rose-gold hover:text-rose-gold',
+              ? 'border-rose-gold bg-rose-gold/5'
+              : 'border-platinum-dark hover:border-rose-gold',
           ].join(' ')}
         >
-          <Heart size={20} fill={wishlisted ? 'currentColor' : 'none'} aria-hidden="true" />
+          <AnimatedHeart
+            size={22}
+            filled={wishlisted}
+            color="rgba(26, 26, 26, 0.5)"
+            fillColor="#c67a95"
+          />
         </button>
       </div>
 

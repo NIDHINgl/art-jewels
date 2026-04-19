@@ -315,7 +315,8 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                     'Type to search'
                   )}
                 </span>
-                <span>
+                {/* Keyboard hint — hidden on mobile (no physical Esc key) */}
+                <span className="hidden sm:inline">
                   <kbd className="font-body px-1.5 py-0.5 border border-platinum rounded-sm bg-pearl text-obsidian/60">
                     Esc
                   </kbd>{' '}

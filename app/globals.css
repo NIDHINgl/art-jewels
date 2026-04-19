@@ -294,6 +294,51 @@ body {
   }
 }
 
+/* ─── Glowing Card ──────────────────────────────────────────────────────────── */
+@keyframes glowingCardDot {
+  0%, 100% {
+    top: -6px;
+    right: 10px;
+  }
+  25% {
+    top: 10px;
+    right: calc(100% - 6px);
+  }
+  50% {
+    top: calc(100% - 6px);
+    right: calc(100% - 10px);
+  }
+  75% {
+    top: calc(100% - 10px);
+    right: -6px;
+  }
+}
+.glowing-card-dot {
+  animation: glowingCardDot 6s linear infinite;
+}
+
+/* Decorative corner/edge lines that catch the dot's glow */
+.glowing-card-line {
+  background: linear-gradient(90deg, transparent, rgba(233, 197, 118, 0.35), transparent);
+}
+.glowing-card-line-top,
+.glowing-card-line-bottom {
+  background: linear-gradient(90deg, transparent, rgba(233, 197, 118, 0.4), transparent);
+}
+.glowing-card-line-left,
+.glowing-card-line-right {
+  background: linear-gradient(180deg, transparent, rgba(233, 197, 118, 0.4), transparent);
+}
+
+/* Hide scrollbar but keep the element scrollable — used for horizontal chip rows */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* ─── Reduced Motion ────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,

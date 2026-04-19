@@ -1,13 +1,15 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Link from 'next/link';
-import { X, ShoppingBag } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { X, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCartStore } from '@/store/cartStore';
 import { formatPrice } from '@/lib/utils';
 import CartItem from './CartItem';
+import { PrestigeButton } from '@/components/ui/prestige-button';
 
 export default function CartDrawer() {
+  const router = useRouter();
   const { items, isDrawerOpen, closeDrawer, totalItems, totalPrice } = useCartStore();
 
   useEffect(() => {
@@ -16,7 +18,9 @@ export default function CartDrawer() {
     } else {
       document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isDrawerOpen]);
 
   useEffect(() => {
@@ -28,6 +32,12 @@ export default function CartDrawer() {
   }, [closeDrawer]);
 
   if (!isDrawerOpen) return null;
+
+  // Close the drawer, then navigate — keeps the transition smooth
+  const navigate = (href: string) => {
+    closeDrawer();
+    router.push(href);
+  };
 
   return (
     <div
@@ -49,9 +59,7 @@ export default function CartDrawer() {
         <div className="flex items-center justify-between px-6 py-5 border-b border-platinum">
           <div className="flex items-center gap-3">
             <ShoppingBag size={20} className="text-gold" aria-hidden="true" />
-            <h2 className="font-display text-lg text-obsidian">
-              Your Cart
-            </h2>
+            <h2 className="font-display text-lg text-obsidian">Your Cart</h2>
             {totalItems() > 0 && (
               <span className="text-xs font-body text-obsidian/50">
                 ({totalItems()} item{totalItems() !== 1 ? 's' : ''})
@@ -80,13 +88,15 @@ export default function CartDrawer() {
                   Discover pieces made for you.
                 </p>
               </div>
-              <Link
-                href="/collections"
-                onClick={closeDrawer}
-                className="mt-2 px-6 py-3 bg-velvet text-white font-body text-sm font-medium hover:bg-velvet/85 transition-colors"
-              >
-                Browse Collection
-              </Link>
+              <PrestigeButton
+                type="button"
+                onClick={() => navigate('/collections')}
+                icon={<ShoppingBag />}
+                title="Browse Collection"
+                variant="obsidian"
+                size="md"
+                className="mt-2 w-full sm:w-auto"
+              />
             </div>
           ) : (
             <ul className="divide-y divide-platinum" role="list">
@@ -104,17 +114,19 @@ export default function CartDrawer() {
           <div className="border-t border-platinum p-6 flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <span className="font-accent text-sm italic text-obsidian/60">Subtotal</span>
-              <span className="font-body font-semibold text-lg text-obsidian">
+              <span className="font-body font-semibold text-lg text-obsidian tabular-nums">
                 {formatPrice(totalPrice())}
               </span>
             </div>
-            <Link
-              href="/cart"
-              onClick={closeDrawer}
-              className="w-full py-4 bg-velvet text-white font-body font-medium text-sm text-center hover:bg-velvet/85 active:scale-[0.98] transition-all"
-            >
-              View Full Cart & Checkout
-            </Link>
+            <PrestigeButton
+              type="button"
+              onClick={() => navigate('/cart')}
+              icon={<ArrowRight />}
+              title="View Cart & Checkout"
+              variant="obsidian"
+              size="md"
+              className="w-full"
+            />
           </div>
         )}
       </div>

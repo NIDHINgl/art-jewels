@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ShoppingBag, Trash2 } from 'lucide-react';
 import { useCartStore } from '@/store/cartStore';
 import { formatPrice } from '@/lib/utils';
@@ -9,10 +10,11 @@ import CartItem from '@/components/cart/CartItem';
 import CartSummary from '@/components/cart/CartSummary';
 import CheckoutForm from '@/components/cart/CheckoutForm';
 import Modal from '@/components/ui/Modal';
-import Button from '@/components/ui/Button';
+import { PrestigeButton } from '@/components/ui/prestige-button';
 import { useToast } from '@/components/ui/Toast';
 
 export default function CartPageClient() {
+  const router = useRouter();
   const { items, clearCart, totalItems, totalPrice } = useCartStore();
   const { toast } = useToast();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
@@ -53,11 +55,15 @@ export default function CartPageClient() {
                 Each piece in the LUMORA collection is waiting to find its wearer.
               </p>
             </div>
-            <Link href="/collections">
-              <Button variant="primary" size="lg">
-                Browse the Collection
-              </Button>
-            </Link>
+            <PrestigeButton
+              type="button"
+              onClick={() => router.push('/collections')}
+              icon={<ShoppingBag />}
+              title="Browse Collection"
+              variant="obsidian"
+              size="md"
+              className="w-full sm:w-auto"
+            />
           </div>
         ) : (
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-14 items-start">
@@ -170,13 +176,24 @@ export default function CartPageClient() {
           Are you sure you want to remove all pieces from your cart? This cannot
           be undone.
         </p>
-        <div className="flex gap-3">
-          <Button variant="ghost" fullWidth onClick={() => setClearModalOpen(false)}>
-            Keep Items
-          </Button>
-          <Button variant="danger" fullWidth onClick={handleClearCart}>
-            Clear Cart
-          </Button>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <PrestigeButton
+            type="button"
+            onClick={() => setClearModalOpen(false)}
+            title="Keep Items"
+            variant="outline"
+            size="md"
+            className="flex-1"
+          />
+          <PrestigeButton
+            type="button"
+            onClick={handleClearCart}
+            icon={<Trash2 />}
+            title="Clear Cart"
+            variant="danger"
+            size="md"
+            className="flex-1"
+          />
         </div>
       </Modal>
     </div>

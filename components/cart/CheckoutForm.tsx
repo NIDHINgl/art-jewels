@@ -9,6 +9,7 @@ import { SELLER_WHATSAPP } from '@/lib/constants';
 import Modal from '@/components/ui/Modal';
 import Button from '@/components/ui/Button';
 import { PrestigeButton } from '@/components/ui/prestige-button';
+import { Textarea } from '@/components/ui/textarea';
 
 interface CheckoutFormProps {
   isOpen: boolean;
@@ -194,14 +195,14 @@ export default function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
               Delivery Address{' '}
               <span className="text-obsidian/30 normal-case font-normal">(optional)</span>
             </label>
-            <textarea
+            <Textarea
               id="checkout-address"
               value={formData.address}
               onChange={(e) => setFormData((f) => ({ ...f, address: e.target.value }))}
               placeholder="Your delivery address"
               rows={3}
               autoComplete="street-address"
-              className="w-full px-4 py-3 border border-platinum-dark font-body text-sm text-obsidian bg-ivory outline-none focus:border-gold transition-colors rounded-sm resize-none"
+              className="resize-none"
             />
           </div>
 
@@ -214,13 +215,13 @@ export default function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
               Notes{' '}
               <span className="text-obsidian/30 normal-case font-normal">(optional)</span>
             </label>
-            <textarea
+            <Textarea
               id="checkout-notes"
               value={formData.notes}
               onChange={(e) => setFormData((f) => ({ ...f, notes: e.target.value }))}
               placeholder="Gift wrapping, custom engraving, special requests…"
               rows={2}
-              className="w-full px-4 py-3 border border-platinum-dark font-body text-sm text-obsidian bg-ivory outline-none focus:border-gold transition-colors rounded-sm resize-none"
+              className="resize-none"
             />
           </div>
 

@@ -5,6 +5,7 @@ import { CinematicFooter } from '@/components/ui/motion-footer';
 import CartDrawer from '@/components/cart/CartDrawer';
 import ToastContainer from '@/components/ui/Toast';
 import ScrollToTop from '@/components/ui/ScrollToTop';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { BRAND_NAME, BRAND_DESCRIPTION, SITE_URL, SITE_OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
@@ -45,18 +46,20 @@ export default function RootLayout({
           Skip to main content
         </a>
 
-        <Navbar />
+        <TooltipProvider delayDuration={250} skipDelayDuration={300}>
+          <Navbar />
 
-        <main id="main-content" tabIndex={-1}>
-          {children}
-        </main>
+          <main id="main-content" tabIndex={-1}>
+            {children}
+          </main>
 
-        <CinematicFooter />
+          <CinematicFooter />
 
-        {/* Global overlays */}
-        <CartDrawer />
-        <ToastContainer />
-        <ScrollToTop />
+          {/* Global overlays */}
+          <CartDrawer />
+          <ToastContainer />
+          <ScrollToTop />
+        </TooltipProvider>
       </body>
     </html>
   );

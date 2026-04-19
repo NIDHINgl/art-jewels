@@ -237,10 +237,19 @@ export function CinematicFooter() {
     if (typeof window === 'undefined') return;
     if (!wrapperRef.current) return;
 
+    // Only the decorative giant background text gets a gentle scroll-parallax.
+    // The heading + link grid used to have a ScrollTrigger reveal too, but on
+    // pages where the wrapper is already in view at load (short routes like
+    // Wishlist, Contact, some PDPs), ScrollTrigger's `toggleActions: play …`
+    // did not fire because the trigger threshold had already been passed
+    // before GSAP initialized — leaving the footer content permanently at
+    // opacity: 0. Now the content is just always visible; the footer's aurora,
+    // marquee, and heartbeat already provide plenty of motion.
     const ctx = gsap.context(() => {
+      if (!giantTextRef.current) return;
       gsap.fromTo(
         giantTextRef.current,
-        { y: '8vh', scale: 0.85, opacity: 0 },
+        { y: '8vh', scale: 0.9, opacity: 0.4 },
         {
           y: '0vh',
           scale: 1,
@@ -248,25 +257,8 @@ export function CinematicFooter() {
           ease: 'power1.out',
           scrollTrigger: {
             trigger: wrapperRef.current,
-            start: 'top 80%',
-            end: 'bottom bottom',
-            scrub: 1,
-          },
-        },
-      );
-
-      gsap.fromTo(
-        [headingRef.current, linksRef.current],
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: wrapperRef.current,
-            start: 'top 50%',
-            end: 'bottom bottom',
+            start: 'top 90%',
+            end: 'top 30%',
             scrub: 1,
           },
         },
@@ -282,12 +274,22 @@ export function CinematicFooter() {
 
       {/* Curtain reveal — wrapper holds space, footer is fixed underneath.
           data-footer-wrapper is watched by the Navbar so it can hide itself. */}
+      {/*
+        Footer renders in normal document flow on every breakpoint. The earlier
+        `md:fixed md:h-screen` + `clip-path` curtain-reveal caused the footer to
+        disappear on pages with short content (Contact, Wishlist, empty states)
+        because clip-path creates a new containing block for fixed descendants,
+        and ScrollTrigger could not consistently reveal the footer when there
+        wasn't enough scroll distance. The visual effects (aurora, grid, giant
+        text, marquee, magnetic buttons, scroll-triggered reveals) all still
+        work in static flow.
+      */}
       <div
         ref={wrapperRef}
         data-footer-wrapper
-        className="relative w-full md:h-screen md:[clip-path:polygon(0%_0,100%_0%,100%_100%,0_100%)]"
+        className="relative w-full"
       >
-        <footer className="relative flex w-full flex-col overflow-hidden bg-obsidian-deep text-white cinematic-footer-wrapper md:fixed md:bottom-0 md:left-0 md:h-screen md:justify-between">
+        <footer className="relative flex w-full flex-col overflow-hidden bg-obsidian-deep text-white cinematic-footer-wrapper">
           {/* Aurora + grid background */}
           <div
             className="lumora-footer-aurora absolute left-1/2 top-1/2 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 animate-lumora-footer-breathe rounded-[50%] blur-[80px] pointer-events-none z-0"
@@ -298,14 +300,14 @@ export function CinematicFooter() {
           {/* Giant LUMORA brand text in the background */}
           <div
             ref={giantTextRef}
-            className="lumora-footer-giant-text hidden md:block absolute -bottom-[4vh] left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none select-none"
+            className="lumora-footer-giant-text absolute -bottom-[4vh] left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none select-none hidden md:block"
             aria-hidden="true"
           >
             {BRAND_NAME}
           </div>
 
-          {/* Top marquee — in flow on mobile, floating on desktop */}
-          <div className="relative md:absolute md:top-10 md:left-0 w-full overflow-hidden border-y border-white/10 bg-obsidian/70 backdrop-blur-md py-2.5 md:py-3 z-10 -rotate-[1deg] md:-rotate-[1.5deg] scale-[1.03] md:scale-110 shadow-xl">
+          {/* Top marquee — always in normal flow so it stays visible */}
+          <div className="relative w-full overflow-hidden border-y border-white/10 bg-obsidian/70 backdrop-blur-md py-2.5 md:py-3 z-10 -rotate-[1deg] md:-rotate-[1.5deg] scale-[1.03] md:scale-110 shadow-xl mt-8 md:mt-12">
             <div className="flex w-max animate-lumora-footer-marquee font-accent text-[9px] sm:text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.35em] uppercase">
               <MarqueeItem />
               <MarqueeItem />
@@ -313,7 +315,7 @@ export function CinematicFooter() {
           </div>
 
           {/* Center content */}
-          <div className="relative z-10 flex md:flex-1 flex-col items-center md:justify-center px-5 sm:px-6 pt-12 pb-8 md:mt-20 md:py-0 w-full max-w-6xl mx-auto">
+          <div className="relative z-10 flex flex-col items-center px-5 sm:px-6 pt-14 pb-10 md:pt-20 md:pb-16 w-full max-w-6xl mx-auto">
             {/* Eyebrow */}
             <p className="font-accent text-[10px] sm:text-xs tracking-[0.4em] sm:tracking-[0.5em] uppercase text-gold/80 mb-3 sm:mb-4">
               The Atelier
@@ -330,30 +332,31 @@ export function CinematicFooter() {
               {BRAND_TAGLINE}
             </p>
 
-            {/* Primary magnetic CTAs — stack on mobile, inline on sm+ */}
+            {/* Primary magnetic CTAs — compact centered pills on mobile, inline on sm+ */}
             <div ref={linksRef} className="flex flex-col items-center gap-5 md:gap-6 w-full">
-              <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row items-center justify-center flex-wrap gap-3 sm:gap-4">
                 <MagneticButton
                   as={Link}
                   href="/collections"
-                  className="lumora-footer-glass-pill px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-body font-semibold text-sm md:text-base flex items-center justify-center gap-3 text-pearl w-full sm:w-auto"
+                  className="lumora-footer-glass-pill px-5 sm:px-8 py-3 sm:py-4 rounded-full font-body font-semibold text-xs sm:text-sm md:text-base inline-flex items-center justify-center gap-2.5 sm:gap-3 text-pearl"
                 >
                   Explore the Collection
-                  <ArrowRight className="w-4 h-4 text-gold shrink-0" />
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold shrink-0" />
                 </MagneticButton>
 
                 <MagneticButton
                   as={Link}
                   href="/contact"
-                  className="lumora-footer-glass-pill px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-body font-semibold text-sm md:text-base flex items-center justify-center gap-3 text-pearl w-full sm:w-auto"
+                  className="lumora-footer-glass-pill px-5 sm:px-8 py-3 sm:py-4 rounded-full font-body font-semibold text-xs sm:text-sm md:text-base inline-flex items-center justify-center gap-2.5 sm:gap-3 text-pearl"
                 >
                   Commission Bespoke
-                  <ArrowRight className="w-4 h-4 text-gold shrink-0" />
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold shrink-0" />
                 </MagneticButton>
               </div>
 
-              {/* Nav grid — 2 cols on mobile (Shop | Explore), Connect below full-width; 3 cols on sm+ */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 w-full max-w-3xl mt-4 md:mt-6">
+              {/* Nav grid — 2 cols on mobile (Shop | Explore), Connect below full-width;
+                  on mobile all columns are center-aligned */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 w-full max-w-3xl mt-4 md:mt-6 text-center sm:text-left">
                 <div>
                   <h3 className="font-accent text-[10px] tracking-[0.3em] sm:tracking-[0.35em] uppercase text-gold mb-3">
                     Shop
@@ -390,11 +393,11 @@ export function CinematicFooter() {
                   </ul>
                 </div>
 
-                <div className="col-span-2 sm:col-span-1">
+                <div className="col-span-2 sm:col-span-1 flex flex-col items-center sm:items-start">
                   <h3 className="font-accent text-[10px] tracking-[0.3em] sm:tracking-[0.35em] uppercase text-gold mb-3">
                     Connect
                   </h3>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 justify-center sm:justify-start">
                     <a
                       href={SELLER_INSTAGRAM}
                       target="_blank"
@@ -421,7 +424,7 @@ export function CinematicFooter() {
                       <Mail size={15} aria-hidden="true" />
                     </a>
                   </div>
-                  <p className="mt-3 sm:mt-4 font-accent italic text-xs text-white/45 leading-relaxed">
+                  <p className="mt-3 sm:mt-4 font-accent italic text-xs text-white/45 leading-relaxed max-w-sm text-center sm:text-left">
                     Reach us on WhatsApp for commissions, sizing, or a quiet
                     conversation about a piece.
                   </p>

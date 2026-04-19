@@ -10,6 +10,7 @@ import { useWishlistStore } from '@/store/wishlistStore';
 import { BRAND_NAME } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import MobileMenu from './MobileMenu';
 import SearchOverlay from './SearchOverlay';
 
@@ -22,42 +23,48 @@ interface DockIconProps {
   hoverTint?: 'gold' | 'rose-gold' | 'velvet';
   lightBgNav: boolean;
 }
-function DockIcon({ children, hoverTint = 'gold', lightBgNav }: DockIconProps) {
-  const [hovered, setHovered] = useState(false);
-  const ringColor: Record<string, string> = {
-    gold: 'border-gold/40',
-    'rose-gold': 'border-rose-gold/40',
-    velvet: 'border-velvet/40',
-  };
-  return (
-    <motion.div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
-      animate={{ scale: hovered ? 1.18 : 1, rotate: hovered ? -5 : 0 }}
-      transition={ICON_SPRING}
-      className="relative"
-    >
-      {children}
-      <AnimatePresence>
-        {hovered && (
-          <motion.span
-            className={cn(
-              'absolute inset-0 rounded-sm border pointer-events-none',
-              ringColor[hoverTint],
-              lightBgNav ? 'shadow-[0_0_14px_-2px_rgba(183,137,58,0.45)]' : 'shadow-[0_0_16px_-2px_rgba(246,233,208,0.5)]',
-            )}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.1 }}
-            transition={{ duration: 0.2 }}
-          />
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
-}
+// forwardRef is required because Radix Tooltip's `asChild` trigger passes a ref
+// through to its child. Without this, React logs:
+//   "Function components cannot be given refs."
+const DockIcon = React.forwardRef<HTMLDivElement, DockIconProps>(
+  function DockIcon({ children, hoverTint = 'gold', lightBgNav }, ref) {
+    const [hovered, setHovered] = useState(false);
+    const ringColor: Record<string, string> = {
+      gold: 'border-gold/40',
+      'rose-gold': 'border-rose-gold/40',
+      velvet: 'border-velvet/40',
+    };
+    return (
+      <motion.div
+        ref={ref}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onFocus={() => setHovered(true)}
+        onBlur={() => setHovered(false)}
+        animate={{ scale: hovered ? 1.18 : 1, rotate: hovered ? -5 : 0 }}
+        transition={ICON_SPRING}
+        className="relative"
+      >
+        {children}
+        <AnimatePresence>
+          {hovered && (
+            <motion.span
+              className={cn(
+                'absolute inset-0 rounded-sm border pointer-events-none',
+                ringColor[hoverTint],
+                lightBgNav ? 'shadow-[0_0_14px_-2px_rgba(183,137,58,0.45)]' : 'shadow-[0_0_16px_-2px_rgba(246,233,208,0.5)]',
+              )}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.1 }}
+              transition={{ duration: 0.2 }}
+            />
+          )}
+        </AnimatePresence>
+      </motion.div>
+    );
+  },
+);
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -187,60 +194,94 @@ export default function Navbar() {
 
               {/* Icon actions — each wrapped in DockIcon for dock-style springy hover */}
               <div className="flex items-center gap-1 sm:gap-2">
-                <DockIcon hoverTint="gold" lightBgNav={lightBgNav}>
-                  <button
-                    onClick={() => setSearchOpen(true)}
-                    aria-label="Open search"
-                    className={cn(
-                      'w-11 h-11 flex items-center justify-center rounded-sm hover:text-gold transition-colors',
-                      lightBgNav ? 'text-obsidian/80' : 'text-white/85',
-                    )}
-                  >
-                    <Search size={20} aria-hidden="true" />
-                  </button>
-                </DockIcon>
-
-                <DockIcon hoverTint="rose-gold" lightBgNav={lightBgNav}>
-                  <Link
-                    href="/wishlist"
-                    aria-label={`Wishlist — ${wishlistTotal} items`}
-                    className={cn(
-                      'relative w-11 h-11 flex items-center justify-center rounded-sm hover:text-rose-gold transition-colors',
-                      lightBgNav ? 'text-obsidian/80' : 'text-white/85',
-                    )}
-                  >
-                    <Heart size={20} aria-hidden="true" />
-                    {wishlistTotal > 0 && (
-                      <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-rose-gold text-white text-[10px] font-semibold rounded-full flex items-center justify-center">
-                        {wishlistTotal > 9 ? '9+' : wishlistTotal}
-                      </span>
-                    )}
-                  </Link>
-                </DockIcon>
-
-                <DockIcon hoverTint="velvet" lightBgNav={lightBgNav}>
-                  <button
-                    onClick={toggleCartDrawer}
-                    aria-label={`Cart — ${cartTotal} items`}
-                    className={cn(
-                      'relative w-11 h-11 flex items-center justify-center rounded-sm hover:text-velvet transition-colors',
-                      lightBgNav ? 'text-obsidian/80' : 'text-white/85',
-                    )}
-                  >
-                    <ShoppingBag size={20} aria-hidden="true" />
-                    {cartTotal > 0 && (
-                      <span
-                        aria-live="polite"
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DockIcon hoverTint="gold" lightBgNav={lightBgNav}>
+                      <button
+                        onClick={() => setSearchOpen(true)}
+                        aria-label="Open search"
                         className={cn(
-                          'absolute top-1.5 right-1.5 w-4 h-4 bg-velvet text-white text-[10px] font-semibold rounded-full flex items-center justify-center',
-                          cartBounce && 'animate-bounce-scale',
+                          'w-11 h-11 flex items-center justify-center rounded-sm hover:text-gold transition-colors',
+                          lightBgNav ? 'text-obsidian/80' : 'text-white/85',
                         )}
                       >
-                        {cartTotal > 9 ? '9+' : cartTotal}
-                      </span>
-                    )}
-                  </button>
-                </DockIcon>
+                        <Search size={20} aria-hidden="true" />
+                      </button>
+                    </DockIcon>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">Search the atelier</TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DockIcon hoverTint="rose-gold" lightBgNav={lightBgNav}>
+                      <Link
+                        href="/wishlist"
+                        aria-label={`Wishlist — ${wishlistTotal} items`}
+                        className={cn(
+                          'relative w-11 h-11 flex items-center justify-center rounded-sm hover:text-rose-gold transition-colors',
+                          lightBgNav ? 'text-obsidian/80' : 'text-white/85',
+                        )}
+                      >
+                        <Heart size={20} aria-hidden="true" />
+                        {wishlistTotal > 0 && (
+                          <span
+                            className={cn(
+                              'absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1',
+                              'inline-flex items-center justify-center rounded-full',
+                              'bg-rose-gold text-white font-body text-[10px] font-semibold tabular-nums',
+                              // Ring separates the pill from the icon — adapts to nav bg
+                              'ring-2',
+                              lightBgNav ? 'ring-ivory' : 'ring-obsidian-deep',
+                            )}
+                          >
+                            {wishlistTotal > 9 ? '9+' : wishlistTotal}
+                          </span>
+                        )}
+                      </Link>
+                    </DockIcon>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    Wishlist
+                    {wishlistTotal > 0 && ` · ${wishlistTotal}`}
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DockIcon hoverTint="gold" lightBgNav={lightBgNav}>
+                      <button
+                        onClick={toggleCartDrawer}
+                        aria-label={`Cart — ${cartTotal} items`}
+                        className={cn(
+                          'relative w-11 h-11 flex items-center justify-center rounded-sm hover:text-gold transition-colors',
+                          lightBgNav ? 'text-obsidian/80' : 'text-white/85',
+                        )}
+                      >
+                        <ShoppingBag size={20} aria-hidden="true" />
+                        {cartTotal > 0 && (
+                          <span
+                            aria-live="polite"
+                            className={cn(
+                              'absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1',
+                              'inline-flex items-center justify-center rounded-full',
+                              'bg-gold text-white font-body text-[10px] font-semibold tabular-nums',
+                              'ring-2',
+                              lightBgNav ? 'ring-ivory' : 'ring-obsidian-deep',
+                              cartBounce && 'animate-bounce-scale',
+                            )}
+                          >
+                            {cartTotal > 9 ? '9+' : cartTotal}
+                          </span>
+                        )}
+                      </button>
+                    </DockIcon>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    Cart
+                    {cartTotal > 0 && ` · ${cartTotal}`}
+                  </TooltipContent>
+                </Tooltip>
 
                 <DockIcon hoverTint="gold" lightBgNav={lightBgNav}>
                   <button

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Gem, Hammer, Leaf, Clock } from 'lucide-react';
 import { PAGE_META, BRAND_NAME } from '@/lib/constants';
+import { GlowingCard } from '@/components/ui/glowing-card';
 
 export const metadata: Metadata = {
   title: PAGE_META.about.title,
@@ -88,14 +89,51 @@ export default function AboutPage() {
       >
         <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Image placeholder */}
-            <div className="relative aspect-[4/5] bg-obsidian rounded-sm overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[hsl(43,25%,18%)] via-obsidian to-obsidian-deep" />
-              <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-                <div className="w-28 h-28 border border-gold/20 rotate-45" />
+            {/* Image with glowing stat card centered as its focal point.
+                Background is light (champagne → pearl) so the dark GlowingCard
+                reads as a bold focal element, not dark-on-dark. */}
+            <div className="relative aspect-[4/5] bg-pearl rounded-sm overflow-hidden border border-gold/20">
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    'linear-gradient(135deg, hsl(34, 60%, 90%) 0%, hsl(45, 45%, 95%) 55%, hsl(30, 30%, 88%) 100%)',
+                }}
+                aria-hidden="true"
+              />
+              {/* Faint noise + radial gold warm wash */}
+              <div
+                className="absolute inset-0 opacity-60 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(ellipse at 30% 20%, rgba(233,197,118,0.25) 0%, transparent 55%)',
+                }}
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-0 opacity-30 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(ellipse at 70% 80%, rgba(183,137,58,0.3) 0%, transparent 60%)',
+                }}
+                aria-hidden="true"
+              />
+              {/* Gold corner ornaments — tie it to the product card ornament language */}
+              <div
+                className="absolute inset-4 pointer-events-none"
+                aria-hidden="true"
+              >
+                <span className="absolute top-0 left-0 w-4 h-4 border-l border-t border-gold/50" />
+                <span className="absolute top-0 right-0 w-4 h-4 border-r border-t border-gold/50" />
+                <span className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-gold/50" />
+                <span className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-gold/50" />
+              </div>
+              {/* Glowing stat card — dark, reads beautifully against the champagne light */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <GlowingCard value="750k" label="Orders" />
               </div>
               <div className="absolute bottom-6 left-6 right-6">
-                <p className="font-accent text-sm italic text-white/40">
+                <p className="font-accent text-sm italic text-obsidian/50">
                   The atelier, Thiruvananthapuram
                 </p>
               </div>

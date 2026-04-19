@@ -1,16 +1,18 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import Link from 'next/link';
-import { Heart } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Heart, Sparkles } from 'lucide-react';
 import { useWishlistStore } from '@/store/wishlistStore';
 import { useCartStore } from '@/store/cartStore';
 import { useToast } from '@/components/ui/Toast';
 import ProductCard from '@/components/product/ProductCard';
 import Button from '@/components/ui/Button';
+import { PrestigeButton } from '@/components/ui/prestige-button';
 import { products } from '@/data/products';
 
 export default function WishlistPageClient() {
+  const router = useRouter();
   const { items, clearWishlist } = useWishlistStore();
   const addItem = useCartStore((s) => s.addItem);
   const { toast } = useToast();
@@ -42,24 +44,37 @@ export default function WishlistPageClient() {
 
       <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
         {displayItems.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 gap-6 text-center">
-            <div className="w-20 h-20 rounded-full bg-champagne/40 flex items-center justify-center">
-              <Heart size={32} className="text-rose-gold/50" aria-hidden="true" />
+          <div className="flex flex-col items-center justify-center py-20 sm:py-24 gap-6 text-center">
+            {/* Ornamental heart frame with gold corner marks */}
+            <div className="relative w-24 h-24 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-champagne/40" aria-hidden="true" />
+              <Heart size={34} className="text-rose-gold/60 relative z-10" aria-hidden="true" />
+              <span className="absolute top-0 left-0 w-3 h-3 border-l border-t border-gold/60" aria-hidden="true" />
+              <span className="absolute top-0 right-0 w-3 h-3 border-r border-t border-gold/60" aria-hidden="true" />
+              <span className="absolute bottom-0 left-0 w-3 h-3 border-l border-b border-gold/60" aria-hidden="true" />
+              <span className="absolute bottom-0 right-0 w-3 h-3 border-r border-b border-gold/60" aria-hidden="true" />
             </div>
             <div>
-              <h2 className="font-display text-2xl text-obsidian mb-2">
+              <p className="font-accent text-xs tracking-[0.4em] uppercase text-gold mb-2">
+                Nothing Saved Yet
+              </p>
+              <h2 className="font-display text-2xl sm:text-3xl text-obsidian mb-2">
                 Your wishlist is empty
               </h2>
-              <p className="font-accent text-base italic text-obsidian/50">
-                Save pieces you love while you browse — tap the heart icon on any
-                piece.
+              <p className="font-accent italic text-base text-obsidian/55 max-w-md mx-auto leading-relaxed">
+                Save pieces you love as you browse — tap the heart on any piece
+                and it will appear here.
               </p>
             </div>
-            <Link href="/collections">
-              <Button variant="primary" size="lg">
-                Browse the Collection
-              </Button>
-            </Link>
+            <PrestigeButton
+              type="button"
+              onClick={() => router.push('/collections')}
+              icon={<Sparkles />}
+              title="Browse Collection"
+              variant="obsidian"
+              size="md"
+              className="w-full sm:w-auto"
+            />
           </div>
         ) : (
           <>

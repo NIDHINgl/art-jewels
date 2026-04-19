@@ -5,7 +5,7 @@ import type { FilterState, Category, Material, Style } from '@/types';
 import { formatPrice, formatLabel } from '@/lib/utils';
 import { NeonCheckbox } from '@/components/ui/animated-check-box';
 import { Slider } from '@/components/ui/slider';
-import { LeverSwitch } from '@/components/ui/lever-switch';
+import Switch from '@/components/ui/switch';
 
 interface FilterSidebarProps {
   filters: FilterState;
@@ -111,7 +111,7 @@ export default function FilterSidebar({
           <span className="font-body text-xs font-semibold tracking-widest uppercase text-obsidian/60">
             In Stock Only
           </span>
-          <LeverSwitch
+          <Switch
             checked={filters.inStockOnly}
             onCheckedChange={(v) => updateFilter('inStockOnly', v)}
             aria-label="Show in-stock pieces only"
