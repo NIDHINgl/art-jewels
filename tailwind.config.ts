@@ -29,9 +29,15 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ['Playfair Display', 'Georgia', 'serif'],
-        body: ['DM Sans', 'system-ui', 'sans-serif'],
-        accent: ['Cormorant Garamond', 'Georgia', 'serif'],
+        // LUMORA brand wordmark — reserved for the brand signature
+        wordmark: ['Playfair Display', 'Georgia', 'serif'],
+        // Display — page headings, product names, editorial titles
+        display: ['Fraunces', 'Playfair Display', 'Georgia', 'serif'],
+        // Body — UI text, labels, buttons, prices
+        body: ['Instrument Sans', 'system-ui', '-apple-system', 'sans-serif'],
+        // Italic accents, eyebrows, pull quotes — uses Fraunces for readability
+        // at small sizes (Instrument Serif had hairline strokes that vanished).
+        accent: ['Fraunces', 'Georgia', 'serif'],
       },
       fontSize: {
         'fluid-hero': 'clamp(2.5rem, 7vw, 5.5rem)',

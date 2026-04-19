@@ -96,7 +96,8 @@ const STYLES = `
 }
 
 .lumora-footer-giant-text {
-  font-family: var(--font-display, 'Playfair Display', serif);
+  /* LUMORA wordmark gets Playfair; rest of footer uses the new display/body fonts */
+  font-family: var(--font-wordmark, 'Playfair Display', serif);
   font-size: 26vw;
   line-height: 0.75;
   font-weight: 900;
@@ -191,7 +192,7 @@ MagneticButton.displayName = 'MagneticButton';
 
 // ─── Luxe marquee strip ──────────────────────────────────────────────────────
 const MarqueeItem = () => (
-  <div className="flex items-center space-x-10 px-5 text-white/60">
+  <div className="flex items-center space-x-10 px-5 text-white/80">
     <span>Handcrafted in Kerala</span>
     <span className="text-gold/70">✦</span>
     <span>Ethically Sourced</span>
@@ -308,7 +309,7 @@ export function CinematicFooter() {
 
           {/* Top marquee — always in normal flow so it stays visible */}
           <div className="relative w-full overflow-hidden border-y border-white/10 bg-obsidian/70 backdrop-blur-md py-2.5 md:py-3 z-10 -rotate-[1deg] md:-rotate-[1.5deg] scale-[1.03] md:scale-110 shadow-xl mt-8 md:mt-12">
-            <div className="flex w-max animate-lumora-footer-marquee font-accent text-[9px] sm:text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.35em] uppercase">
+            <div className="flex w-max animate-lumora-footer-marquee font-body font-medium text-[10px] sm:text-xs md:text-[13px] tracking-[0.3em] md:tracking-[0.35em] uppercase">
               <MarqueeItem />
               <MarqueeItem />
             </div>
@@ -317,7 +318,7 @@ export function CinematicFooter() {
           {/* Center content */}
           <div className="relative z-10 flex flex-col items-center px-5 sm:px-6 pt-14 pb-10 md:pt-20 md:pb-16 w-full max-w-6xl mx-auto">
             {/* Eyebrow */}
-            <p className="font-accent text-[10px] sm:text-xs tracking-[0.4em] sm:tracking-[0.5em] uppercase text-gold/80 mb-3 sm:mb-4">
+            <p className="font-body font-semibold text-[11px] sm:text-xs tracking-[0.4em] sm:tracking-[0.5em] uppercase text-gold mb-3 sm:mb-4">
               The Atelier
             </p>
 
@@ -328,7 +329,7 @@ export function CinematicFooter() {
               Worn with Intent
             </h2>
 
-            <p className="font-accent italic text-sm md:text-base text-white/55 text-center mb-8 md:mb-10 max-w-xl leading-relaxed px-2">
+            <p className="font-accent italic text-base md:text-lg text-pearl/75 text-center mb-8 md:mb-10 max-w-xl leading-relaxed px-2">
               {BRAND_TAGLINE}
             </p>
 
@@ -358,7 +359,7 @@ export function CinematicFooter() {
                   on mobile all columns are center-aligned */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 w-full max-w-3xl mt-4 md:mt-6 text-center sm:text-left">
                 <div>
-                  <h3 className="font-accent text-[10px] tracking-[0.3em] sm:tracking-[0.35em] uppercase text-gold mb-3">
+                  <h3 className="font-body font-semibold text-[11px] tracking-[0.3em] sm:tracking-[0.35em] uppercase text-gold mb-3">
                     Shop
                   </h3>
                   <ul className="flex flex-col gap-1.5" role="list">
@@ -366,7 +367,7 @@ export function CinematicFooter() {
                       <li key={c.href}>
                         <Link
                           href={c.href}
-                          className="font-accent text-xs text-white/55 hover:text-pearl transition-colors"
+                          className="font-body text-[13px] text-pearl/75 hover:text-pearl transition-colors"
                         >
                           {c.label}
                         </Link>
@@ -376,7 +377,7 @@ export function CinematicFooter() {
                 </div>
 
                 <div>
-                  <h3 className="font-accent text-[10px] tracking-[0.3em] sm:tracking-[0.35em] uppercase text-gold mb-3">
+                  <h3 className="font-body font-semibold text-[11px] tracking-[0.3em] sm:tracking-[0.35em] uppercase text-gold mb-3">
                     Explore
                   </h3>
                   <ul className="flex flex-col gap-1.5" role="list">
@@ -384,7 +385,7 @@ export function CinematicFooter() {
                       <li key={p.href}>
                         <Link
                           href={p.href}
-                          className="font-accent text-xs text-white/55 hover:text-pearl transition-colors"
+                          className="font-body text-[13px] text-pearl/75 hover:text-pearl transition-colors"
                         >
                           {p.label}
                         </Link>
@@ -394,7 +395,7 @@ export function CinematicFooter() {
                 </div>
 
                 <div className="col-span-2 sm:col-span-1 flex flex-col items-center sm:items-start">
-                  <h3 className="font-accent text-[10px] tracking-[0.3em] sm:tracking-[0.35em] uppercase text-gold mb-3">
+                  <h3 className="font-body font-semibold text-[11px] tracking-[0.3em] sm:tracking-[0.35em] uppercase text-gold mb-3">
                     Connect
                   </h3>
                   <div className="flex gap-2 justify-center sm:justify-start">
@@ -403,7 +404,7 @@ export function CinematicFooter() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Follow us on Instagram"
-                      className="lumora-footer-glass-pill w-11 h-11 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white/60 hover:text-gold"
+                      className="lumora-footer-glass-pill w-11 h-11 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white/80 hover:text-gold"
                     >
                       <Instagram size={15} aria-hidden="true" />
                     </a>
@@ -412,19 +413,19 @@ export function CinematicFooter() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Message us on WhatsApp"
-                      className="lumora-footer-glass-pill w-11 h-11 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white/60 hover:text-green-400"
+                      className="lumora-footer-glass-pill w-11 h-11 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white/80 hover:text-green-400"
                     >
                       <MessageCircle size={15} aria-hidden="true" />
                     </a>
                     <a
                       href={`mailto:${SELLER_EMAIL}`}
                       aria-label="Email us"
-                      className="lumora-footer-glass-pill w-11 h-11 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white/60 hover:text-gold"
+                      className="lumora-footer-glass-pill w-11 h-11 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white/80 hover:text-gold"
                     >
                       <Mail size={15} aria-hidden="true" />
                     </a>
                   </div>
-                  <p className="mt-3 sm:mt-4 font-accent italic text-xs text-white/45 leading-relaxed max-w-sm text-center sm:text-left">
+                  <p className="mt-3 sm:mt-4 font-accent italic text-[13px] text-pearl/70 leading-relaxed max-w-sm text-center sm:text-left">
                     Reach us on WhatsApp for commissions, sizing, or a quiet
                     conversation about a piece.
                   </p>
@@ -435,12 +436,12 @@ export function CinematicFooter() {
 
           {/* Bottom bar */}
           <div className="relative z-20 w-full pt-6 pb-5 md:pt-0 md:pb-6 px-4 md:px-10 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 border-t border-white/5 md:border-0">
-            <div className="font-body text-[10px] md:text-xs text-white/30 tracking-[0.2em] md:tracking-widest uppercase order-2 md:order-1 text-center">
+            <div className="font-body font-medium text-[11px] md:text-xs text-pearl/80 tracking-[0.2em] md:tracking-widest uppercase order-2 md:order-1 text-center">
               © {currentYear} {BRAND_NAME}. All rights reserved.
             </div>
 
             <div className="lumora-footer-glass-pill px-4 sm:px-5 py-2 sm:py-2.5 rounded-full flex items-center gap-2 order-1 md:order-2 cursor-default">
-              <span className="font-accent text-[10px] md:text-xs text-white/60 uppercase tracking-[0.2em] sm:tracking-[0.25em]">
+              <span className="font-body font-medium text-[11px] md:text-xs text-pearl/80 uppercase tracking-[0.2em] sm:tracking-[0.25em]">
                 Crafted with
               </span>
               <span
@@ -450,7 +451,7 @@ export function CinematicFooter() {
               >
                 ❤
               </span>
-              <span className="font-accent text-[10px] md:text-xs text-white/60 uppercase tracking-[0.2em] sm:tracking-[0.25em]">
+              <span className="font-body font-medium text-[11px] md:text-xs text-pearl/80 uppercase tracking-[0.2em] sm:tracking-[0.25em]">
                 in Kerala
               </span>
             </div>

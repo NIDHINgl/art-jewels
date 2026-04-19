@@ -41,7 +41,7 @@ export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) 
       <nav className="relative ml-auto w-[80vw] max-w-sm h-full bg-ivory flex flex-col animate-slide-in-right shadow-elevated">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-6 border-b border-platinum">
-          <span className="font-display font-bold text-xl tracking-[0.2em] text-obsidian">
+          <span className="font-wordmark font-bold text-xl tracking-[0.2em] text-obsidian">
             {BRAND_NAME}
           </span>
           <button

@@ -160,7 +160,7 @@ export default function Navbar() {
               <Link
                 href="/"
                 className={cn(
-                  'font-display font-bold tracking-[0.2em] hover:text-gold transition-colors',
+                  'font-wordmark font-bold tracking-[0.2em] hover:text-gold transition-colors',
                   lightBgNav
                     ? scrolled
                       ? 'text-lg text-obsidian'
@@ -178,8 +178,8 @@ export default function Navbar() {
                     <Link
                       href={href}
                       className={cn(
-                        'font-accent text-sm tracking-wider hover:text-gold transition-colors relative group',
-                        lightBgNav ? 'text-obsidian/80' : 'text-white/85',
+                        'font-body font-medium text-sm tracking-[0.08em] hover:text-gold transition-colors relative group',
+                        lightBgNav ? 'text-obsidian' : 'text-pearl',
                       )}
                     >
                       {label}

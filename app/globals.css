@@ -1,4 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+/*
+  Type system:
+  - Playfair Display — reserved for the LUMORA wordmark only (brand signature)
+  - Fraunces         — page/section headings (modern variable serif, warmer than Playfair)
+  - Instrument Sans  — UI body, buttons, prices, labels
+  - Instrument Serif — italic accents, eyebrows, editorial subcopy
+*/
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -19,9 +26,16 @@
   --color-platinum: hsl(30, 5%, 89%);
   --color-platinum-dark: hsl(30, 5%, 75%);
 
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
-  --font-accent: 'Cormorant Garamond', Georgia, serif;
+  /* Wordmark — reserved for LUMORA brand signature only */
+  --font-wordmark: 'Playfair Display', Georgia, serif;
+  /* Display — headings, page titles, product names. Optical axis helps at large sizes. */
+  --font-display: 'Fraunces', 'Playfair Display', Georgia, serif;
+  /* Body — UI text, labels, buttons, prices */
+  --font-body: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  /* Accent — editorial italics, eyebrows, pull quotes. Uses Fraunces so
+     it has real weight at small sizes (Instrument Serif had hairline
+     strokes that went invisible at 10-12px / low opacity). */
+  --font-accent: 'Fraunces', Georgia, serif;
 
   --spacing-base: 8px;
   --max-width: 1440px;
@@ -66,10 +80,22 @@ body.lightbox-open > header {
 body {
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--color-obsidian);
   background-color: var(--color-ivory);
   overflow-x: hidden;
+  /* Subtle letter-spacing tightening — Instrument Sans reads best with a touch less width */
+  letter-spacing: -0.005em;
+}
+
+/* Headings — display serif, slightly tighter tracking and optical sizing */
+h1, h2, h3, h4, h5, h6 {
+  font-feature-settings: 'ss01', 'ss02';
+}
+
+/* Instrument Serif italic — auto-enable the italic style when font-accent is used with italic */
+.font-accent {
+  font-feature-settings: 'ss01';
 }
 
 /* ─── Focus Visible ─────────────────────────────────────────────────────────── */
@@ -114,12 +140,21 @@ body {
 }
 
 /* ─── Typography Utilities ──────────────────────────────────────────────────── */
+.font-wordmark {
+  font-family: var(--font-wordmark);
+  font-feature-settings: 'liga', 'dlig';
+}
+
 .font-display {
   font-family: var(--font-display);
+  /* Fraunces renders best with a touch of soft letter-spacing at display sizes */
+  letter-spacing: -0.015em;
 }
 
 .font-accent {
   font-family: var(--font-accent);
+  /* Fraunces renders best at small sizes with a bit of extra weight */
+  font-weight: 450;
 }
 
 .font-body {
@@ -337,6 +372,32 @@ body {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* ─── Kinetic Dots Loader ───────────────────────────────────────────────────── */
+@keyframes lumora-loader-bounce {
+  0% { transform: translateY(0); animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); }
+  50% { transform: translateY(-40px); animation-timing-function: cubic-bezier(0.32, 0, 0.67, 0); }
+  100% { transform: translateY(0); }
+}
+@keyframes lumora-loader-morph {
+  0%   { transform: scale(1.4, 0.6); }
+  5%   { transform: scale(0.9, 1.1); }
+  15%  { transform: scale(1, 1); }
+  50%  { transform: scale(1, 1); }
+  85%  { transform: scale(0.9, 1.1); }
+  100% { transform: scale(1.4, 0.6); }
+}
+@keyframes lumora-loader-shadow {
+  0%   { transform: scale(1.4); opacity: 0.6; }
+  50%  { transform: scale(0.5); opacity: 0.1; }
+  100% { transform: scale(1.4); opacity: 0.6; }
+}
+@keyframes lumora-loader-ripple {
+  0%   { transform: scale(0.5); opacity: 0; border-width: 4px; }
+  5%   { opacity: 0.8; }
+  30%  { transform: scale(1.5); opacity: 0; border-width: 0px; }
+  100% { transform: scale(1.5); opacity: 0; }
 }
 
 /* ─── Reduced Motion ────────────────────────────────────────────────────────── */

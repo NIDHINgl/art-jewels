@@ -55,7 +55,7 @@ export default function HeroSection() {
       <div className="relative z-20 flex flex-col items-center w-full px-4 sm:px-8">
         {/* Eyebrow */}
         <motion.p
-          className="font-accent text-xs sm:text-sm tracking-[0.4em] uppercase text-gold/70 mb-6"
+          className="font-body font-semibold text-xs sm:text-sm tracking-[0.4em] uppercase text-gold/70 mb-6"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
@@ -72,7 +72,7 @@ export default function HeroSection() {
           delay={0.35}
           showUnderline={false}
           className="gap-0"
-          textClassName="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-display font-bold tracking-[0.12em] leading-[1] bg-clip-text text-transparent bg-gradient-to-b from-pearl via-champagne to-gold"
+          textClassName="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-wordmark font-bold tracking-[0.12em] leading-[1] bg-clip-text text-transparent bg-gradient-to-b from-pearl via-champagne to-gold"
         />
 
         {/* Twin light beams — anchor under the wordmark */}
@@ -164,7 +164,7 @@ export default function HeroSection() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.9, ease: EASE, delay: 1.6 }}
       >
-        <p className="font-accent text-[0.65rem] sm:text-xs tracking-[0.35em] uppercase text-white/30">
+        <p className="font-body font-semibold text-[0.65rem] sm:text-xs tracking-[0.35em] uppercase text-white/30">
           Scroll
         </p>
         <div className="w-px h-10 bg-gradient-to-b from-white/50 to-transparent relative overflow-hidden">

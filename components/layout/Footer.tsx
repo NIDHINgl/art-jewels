@@ -32,7 +32,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link
               href="/"
-              className="font-display font-bold text-2xl tracking-[0.25em] text-white hover:text-gold transition-colors"
+              className="font-wordmark font-bold text-2xl tracking-[0.25em] text-white hover:text-gold transition-colors"
             >
               {BRAND_NAME}
             </Link>
@@ -45,7 +45,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on Instagram"
-                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold transition-all"
+                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-gold hover:border-gold transition-all"
               >
                 <Instagram size={16} aria-hidden="true" />
               </a>
@@ -54,14 +54,14 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Message us on WhatsApp"
-                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-green-400 hover:border-green-400 transition-all"
+                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-green-400 hover:border-green-400 transition-all"
               >
                 <MessageCircle size={16} aria-hidden="true" />
               </a>
               <a
                 href={`mailto:${SELLER_EMAIL}`}
                 aria-label="Email us"
-                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold transition-all"
+                className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-gold hover:border-gold transition-all"
               >
                 <Mail size={16} aria-hidden="true" />
               </a>
@@ -78,7 +78,7 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="font-accent text-sm text-white/60 hover:text-white transition-colors"
+                    className="font-accent text-sm text-white/80 hover:text-white transition-colors"
                   >
                     {label}
                   </Link>
@@ -97,7 +97,7 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="font-accent text-sm text-white/60 hover:text-white transition-colors"
+                    className="font-accent text-sm text-white/80 hover:text-white transition-colors"
                   >
                     {label}
                   </Link>

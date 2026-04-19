@@ -296,12 +296,12 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     const isInteracting = isHovered || isPressed;
 
     const valueDisplay = showValue && valuePosition !== 'tooltip' && (
-      <span className="shrink-0 text-xs font-body text-obsidian/70 text-right tabular-nums">
+      <span className="shrink-0 text-xs font-body text-obsidian/80 text-right tabular-nums">
         {label && <span className="text-obsidian/50">{label}: </span>}
         {isRange ? (
           <>
             <span className="font-medium text-obsidian">{formatValue(values[0])}</span>
-            <span className="mx-1 text-obsidian/40">—</span>
+            <span className="mx-1 text-obsidian/60">—</span>
             <span className="font-medium text-obsidian">{formatValue(values[1])}</span>
           </>
         ) : (

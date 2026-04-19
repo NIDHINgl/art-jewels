@@ -142,7 +142,7 @@ export function TiltProductCard({ product, className }: TiltProductCardProps) {
             className="absolute inset-x-4 bottom-4 z-10 text-white"
             style={{ transform: 'translateZ(70px)' }}
           >
-            <p className="font-accent text-[10px] tracking-[0.3em] uppercase text-gold/90 mb-1">
+            <p className="font-body font-semibold text-[10px] tracking-[0.3em] uppercase text-gold/90 mb-1">
               {product.category}
             </p>
             <h3 className="font-display text-base sm:text-lg leading-tight line-clamp-2">

@@ -16,7 +16,7 @@ export default function CartSummary({ subtotal, onCheckout }: CartSummaryProps) 
       className="bg-pearl border border-platinum rounded-sm p-6 sticky top-24"
       aria-label="Order summary"
     >
-      <p className="font-accent text-[10px] tracking-[0.4em] uppercase text-gold mb-1.5">
+      <p className="font-body font-semibold text-[10px] tracking-[0.4em] uppercase text-gold mb-1.5">
         Summary
       </p>
       <h2 className="font-display text-xl text-obsidian mb-6">Order Total</h2>
@@ -54,7 +54,7 @@ export default function CartSummary({ subtotal, onCheckout }: CartSummaryProps) 
           className="w-full"
         />
 
-        <p className="mt-4 font-accent text-xs italic text-center text-obsidian/40 leading-relaxed">
+        <p className="mt-4 font-accent text-xs italic text-center text-obsidian/60 leading-relaxed">
           You&apos;ll complete your order via WhatsApp. Our artisan will confirm
           availability and arrange delivery personally.
         </p>

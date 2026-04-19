@@ -78,7 +78,7 @@ export default function FeaturedCategories({ products }: FeaturedCategoriesProps
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6',
           ].join(' ')}
         >
-          <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-3">
+          <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-3">
             Browse by Form
           </p>
           <h2 id="categories-heading" className="font-display text-fluid-h2 text-obsidian">
@@ -115,7 +115,7 @@ export default function FeaturedCategories({ products }: FeaturedCategoriesProps
         <div className="text-center mt-10">
           <Link
             href="/collections"
-            className="inline-flex items-center gap-2 font-accent text-sm tracking-wider text-gold hover:text-gold-light transition-colors group"
+            className="inline-flex items-center gap-2 font-body font-medium text-sm tracking-wider text-gold hover:text-gold-light transition-colors group"
           >
             View entire collection
             <ArrowRight

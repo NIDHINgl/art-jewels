@@ -11,7 +11,7 @@ interface BadgeProps {
 const variantClasses: Record<BadgeVariant, string> = {
   new: 'bg-gold text-white',
   bestseller: 'bg-velvet text-white',
-  outofstock: 'bg-platinum-dark text-obsidian/70',
+  outofstock: 'bg-platinum-dark text-obsidian/80',
   custom: 'bg-rose-gold text-white',
 };
 

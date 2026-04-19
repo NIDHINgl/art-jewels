@@ -53,7 +53,7 @@ export default function GalleryGrid() {
           ].join(' ')}
         >
           <div>
-            <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-2">
+            <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-2">
               The Studio
             </p>
             <h2 id="gallery-heading" className="font-display text-fluid-h2 text-obsidian">
@@ -64,7 +64,7 @@ export default function GalleryGrid() {
             href={SELLER_INSTAGRAM}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-accent text-sm tracking-wider text-obsidian/60 hover:text-gold transition-colors group"
+            className="inline-flex items-center gap-2 font-body font-medium text-sm tracking-wider text-obsidian/60 hover:text-gold transition-colors group"
           >
             <Instagram
               size={16}
@@ -117,7 +117,7 @@ export default function GalleryGrid() {
               {/* Permanent corner label on the hero cell */}
               {span.includes('col-span-2') && span.includes('row-span-2') && (
                 <div className="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
-                  <p className="font-accent text-xs tracking-[0.3em] uppercase text-gold/80 mb-1">
+                  <p className="font-body font-semibold text-xs tracking-[0.3em] uppercase text-gold/80 mb-1">
                     Featured
                   </p>
                   <p className="font-display text-lg leading-tight line-clamp-1">{label}</p>

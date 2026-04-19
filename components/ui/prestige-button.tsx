@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 interface PrestigeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,6 +17,10 @@ interface PrestigeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
   size?: 'sm' | 'md' | 'lg';
   /** Show the subtle gold underline sweep on hover. Default true. */
   animatedUnderline?: boolean;
+  /** If provided, renders as a Next.js Link instead of a button. */
+  href?: string;
+  /** When href is set, allow opening in a new tab (adds rel=noopener). */
+  target?: React.HTMLAttributeAnchorTarget;
 }
 
 const sizeClasses = {
@@ -32,8 +37,9 @@ const variantClasses: Record<NonNullable<PrestigeButtonProps['variant']>, string
   outline:
     'bg-transparent text-obsidian border border-obsidian/40 hover:border-obsidian hover:bg-obsidian hover:text-pearl',
   danger:
-    // Muted velvet/wine — signals destructive without clashing with the gold palette
-    'bg-velvet text-white hover:bg-[#6a2430] active:bg-[#522028]',
+    // Destructive-outline: rose-gold border + text on pearl, fills with rose-gold on hover.
+    // Reads destructive without competing with primary obsidian CTAs.
+    'bg-pearl text-rose-gold border border-rose-gold/45 hover:bg-rose-gold hover:text-white hover:border-rose-gold active:bg-[#8a3449]',
 };
 
 /**
@@ -55,62 +61,79 @@ export const PrestigeButton: React.FC<PrestigeButtonProps> = ({
   animatedUnderline = true,
   className,
   disabled,
+  href,
+  target,
   ...props
 }) => {
+  const coreClasses = cn(
+    'group relative inline-flex items-center justify-center gap-2.5 w-full',
+    'font-body font-semibold tracking-[0.22em] uppercase whitespace-nowrap',
+    'rounded-sm overflow-hidden',
+    'transition-[background-color,transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory',
+    'active:scale-[0.985] disabled:opacity-50 disabled:pointer-events-none',
+    sizeClasses[size],
+    variantClasses[variant],
+  );
+
+  const content = (
+    <>
+      {icon && (
+        <span
+          className={cn(
+            'shrink-0 -ml-0.5 transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110',
+            variant === 'obsidian' && 'text-gold',
+            variant === 'gold' && 'text-white',
+            variant === 'outline' && 'text-obsidian group-hover:text-gold',
+            variant === 'danger' && 'text-rose-gold group-hover:text-white',
+          )}
+        >
+          {React.cloneElement(icon as React.ReactElement<{ className?: string; size?: number }>, {
+            className: cn('w-4 h-4', (icon.props as { className?: string })?.className),
+            size: 16,
+          })}
+        </span>
+      )}
+      <span>{title}</span>
+
+      {/* Hair-thin gold underline — slides in from center on hover */}
+      {animatedUnderline && (
+        <span
+          className={cn(
+            'pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 h-px w-0 bg-gold',
+            'transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+            'group-hover:w-[70%]',
+            variant === 'gold' && 'bg-white/80',
+            variant === 'danger' && 'bg-rose-gold/70 group-hover:bg-white/80',
+          )}
+          aria-hidden="true"
+        />
+      )}
+    </>
+  );
+
   return (
     // Wrapper accepts layout classes from the caller (w-full, flex-1, etc.).
-    // Button always fills the wrapper's width so callers don't need to care
-    // about the button vs. wrapper distinction.
+    // Inner element always fills the wrapper's width so callers don't need to
+    // care about the button vs. link distinction.
     <span className={cn('inline-flex flex-col items-stretch gap-2', className)}>
-      <button
-        {...props}
-        disabled={disabled}
-        className={cn(
-          'group relative inline-flex items-center justify-center gap-2.5 w-full',
-          'font-body font-semibold tracking-[0.22em] uppercase whitespace-nowrap',
-          'rounded-sm overflow-hidden',
-          'transition-[background-color,transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory',
-          'active:scale-[0.985] disabled:opacity-50 disabled:pointer-events-none',
-          sizeClasses[size],
-          variantClasses[variant],
-        )}
-      >
-        {icon && (
-          <span
-            className={cn(
-              'shrink-0 -ml-0.5 transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110',
-              variant === 'obsidian' && 'text-gold',
-              variant === 'gold' && 'text-white',
-              variant === 'outline' && 'text-obsidian group-hover:text-gold',
-              variant === 'danger' && 'text-champagne',
-            )}
-          >
-            {React.cloneElement(icon as React.ReactElement<{ className?: string; size?: number }>, {
-              className: cn('w-4 h-4', (icon.props as { className?: string })?.className),
-              size: 16,
-            })}
-          </span>
-        )}
-        <span>{title}</span>
-
-        {/* Hair-thin gold underline — slides in from center on hover */}
-        {animatedUnderline && (
-          <span
-            className={cn(
-              'pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 h-px w-0 bg-gold',
-              'transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-              'group-hover:w-[70%]',
-              variant === 'gold' && 'bg-white/80',
-              variant === 'danger' && 'bg-champagne/80',
-            )}
-            aria-hidden="true"
-          />
-        )}
-      </button>
+      {href ? (
+        <Link
+          href={href}
+          target={target}
+          rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+          className={coreClasses}
+        >
+          {content}
+        </Link>
+      ) : (
+        <button {...props} disabled={disabled} className={coreClasses}>
+          {content}
+        </button>
+      )}
 
       {subtitle && (
-        <span className="font-accent italic text-[11px] sm:text-xs text-obsidian/45 text-center leading-relaxed self-center max-w-sm">
+        <span className="font-accent italic text-[11px] sm:text-xs text-obsidian/65 text-center leading-relaxed self-center max-w-sm">
           {subtitle}
         </span>
       )}

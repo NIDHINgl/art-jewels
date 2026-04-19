@@ -36,7 +36,7 @@ export default function Testimonials() {
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
           ].join(' ')}
         >
-          <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-3">
+          <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-3">
             From Our Wearers
           </p>
           <h2 id="testimonials-heading" className="font-display text-fluid-h2 text-obsidian">

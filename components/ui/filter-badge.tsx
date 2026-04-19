@@ -32,7 +32,7 @@ export function FilterBadge({
   const shell = cn(
     'inline-flex items-center text-xs border',
     // LUMORA theme: soft champagne fill, subtle gold border
-    'bg-champagne/40 border-gold/25 text-obsidian/70',
+    'bg-champagne/40 border-gold/25 text-obsidian/80',
     variant === 'default' && 'rounded-sm gap-x-2.5 py-1 pl-2.5 pr-1',
     variant === 'pill' && 'rounded-full gap-x-2.5 py-1 pl-2.5 pr-1',
     variant === 'avatar' && 'rounded-full gap-2 px-1 py-1',
@@ -45,7 +45,7 @@ export function FilterBadge({
       onClick={onRemove}
       aria-label={`Remove ${label ? `${label} ` : ''}${value ?? (typeof children === 'string' ? children : '')}`}
       className={cn(
-        'flex size-5 items-center justify-center text-obsidian/40 hover:bg-gold/20 hover:text-obsidian transition-colors',
+        'flex size-5 items-center justify-center text-obsidian/60 hover:bg-gold/20 hover:text-obsidian transition-colors',
         variant === 'default' ? 'rounded-[2px] -ml-1.5' : 'rounded-full',
         variant === 'avatar' && 'ml-0',
       )}

@@ -80,7 +80,7 @@ const DestinationCard = React.forwardRef<HTMLDivElement, DestinationCardProps>(
                 'group-hover:bg-[hsl(var(--theme-color)/0.45)] group-hover:border-[hsl(var(--theme-color)/0.55)]',
               )}
             >
-              <span className="font-accent text-[11px] tracking-[0.2em] uppercase font-medium">
+              <span className="font-body font-semibold text-[11px] tracking-[0.2em] uppercase font-medium">
                 {cta}
               </span>
               <ArrowRight

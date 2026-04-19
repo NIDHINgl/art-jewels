@@ -187,7 +187,7 @@ export default function CollectionsPageClient() {
           <Link
             href="/"
             aria-label="Back to home"
-            className="sm:hidden inline-flex items-center gap-1.5 font-accent text-xs tracking-wider text-obsidian/60 hover:text-gold transition-colors mb-5 -ml-1"
+            className="sm:hidden inline-flex items-center gap-1.5 font-body font-medium text-xs tracking-wider text-obsidian/60 hover:text-gold transition-colors mb-5 -ml-1"
           >
             <ArrowLeft size={14} aria-hidden="true" />
             Back to Home
@@ -197,7 +197,7 @@ export default function CollectionsPageClient() {
             {/* Left: breadcrumb → title */}
             <div className="min-w-0">
               {/* Tiny breadcrumb-style eyebrow */}
-              <p className="font-accent text-[10px] sm:text-xs tracking-[0.45em] uppercase text-obsidian/40 mb-2">
+              <p className="font-body font-semibold text-[10px] sm:text-xs tracking-[0.45em] uppercase text-obsidian/60 mb-2">
                 <Link href="/" className="hover:text-gold transition-colors">
                   Home
                 </Link>
@@ -249,12 +249,12 @@ export default function CollectionsPageClient() {
                   onClick={() => setActiveCategory(value)}
                   className={cn(
                     'group relative shrink-0 px-4 sm:px-5 py-4',
-                    'font-accent text-[11px] sm:text-xs tracking-[0.35em] uppercase',
+                    'font-body font-semibold text-[11px] sm:text-xs tracking-[0.35em] uppercase',
                     'transition-colors duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory',
                     isActive
                       ? 'text-obsidian'
-                      : 'text-obsidian/45 hover:text-obsidian',
+                      : 'text-obsidian/65 hover:text-obsidian',
                   )}
                 >
                   {label}
@@ -299,7 +299,7 @@ export default function CollectionsPageClient() {
           <SortDropdown value={sort} onChange={setSort} />
           <button
             onClick={() => setSidebarOpen(true)}
-            className="lg:hidden h-12 flex items-center justify-center gap-2 px-4 border border-platinum-dark text-sm font-body text-obsidian/70 hover:border-gold hover:text-gold transition-colors duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] rounded-sm"
+            className="lg:hidden h-12 flex items-center justify-center gap-2 px-4 border border-platinum-dark text-sm font-body text-obsidian/80 hover:border-gold hover:text-gold transition-colors duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] rounded-sm"
           >
             <SlidersHorizontal size={16} />
             Filters
@@ -318,7 +318,7 @@ export default function CollectionsPageClient() {
           <aside className="hidden lg:block w-64 shrink-0">
             <div className="sticky top-24">
               <div className="flex items-center justify-between mb-5">
-                <p className="font-accent text-xs tracking-[0.3em] uppercase text-gold">
+                <p className="font-body font-semibold text-xs tracking-[0.3em] uppercase text-gold">
                   Refine
                 </p>
                 {hasActiveFilters && (
@@ -414,7 +414,7 @@ export default function CollectionsPageClient() {
                           size="md"
                           className="w-full sm:w-auto"
                         />
-                        <p className="font-accent text-[11px] italic text-obsidian/40">
+                        <p className="font-accent text-[11px] italic text-obsidian/60">
                           {sorted.length - visibleCount} more piece
                           {sorted.length - visibleCount !== 1 ? 's' : ''} available
                         </p>

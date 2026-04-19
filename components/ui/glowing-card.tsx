@@ -66,7 +66,7 @@ export function GlowingCard({ value, label, className }: GlowingCardProps) {
         </p>
 
         {/* Label */}
-        <p className="relative mt-3 font-accent text-xs sm:text-sm tracking-[0.4em] uppercase text-gold/80">
+        <p className="relative mt-3 font-body font-semibold text-xs sm:text-sm tracking-[0.4em] uppercase text-gold/80">
           {label}
         </p>
 

@@ -86,9 +86,9 @@ export default function FilterSidebar({
           <h3 className="font-body text-xs font-semibold tracking-widest uppercase text-obsidian/60">
             Price Range
           </h3>
-          <span className="font-body text-xs tabular-nums text-obsidian/70">
+          <span className="font-body text-xs tabular-nums text-obsidian/80">
             <span className="font-medium text-obsidian">{formatPrice(filters.priceRange[0])}</span>
-            <span className="mx-1 text-obsidian/40">—</span>
+            <span className="mx-1 text-obsidian/60">—</span>
             <span className="font-medium text-obsidian">{formatPrice(filters.priceRange[1])}</span>
           </span>
         </div>

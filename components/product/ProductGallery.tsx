@@ -113,7 +113,7 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-champagne/20">
               <div className="w-16 h-16 rotate-45 border-2 border-gold/30" aria-hidden="true" />
-              <p className="font-accent text-sm italic text-obsidian/40">Image coming soon</p>
+              <p className="font-accent text-sm italic text-obsidian/60">Image coming soon</p>
             </div>
           )}
 
@@ -174,12 +174,12 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
               exit={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.35, ease: EASE, delay: 0.05 }}
             >
-              <span className="font-accent text-xs sm:text-sm tracking-[0.3em] uppercase text-white/60 truncate">
+              <span className="font-body font-semibold text-xs sm:text-sm tracking-[0.3em] uppercase text-white/80 truncate">
                 {productName}
               </span>
               <div className="flex items-center gap-3">
                 {images.length > 1 && (
-                  <span className="font-accent text-xs tracking-[0.3em] uppercase text-white/50 tabular-nums">
+                  <span className="font-body font-semibold text-xs tracking-[0.3em] uppercase text-white/50 tabular-nums">
                     {active + 1} / {images.length}
                   </span>
                 )}

@@ -234,7 +234,7 @@ export default function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
             className="w-full mt-2"
           />
 
-          <p className="font-accent text-xs italic text-center text-obsidian/40">
+          <p className="font-accent text-xs italic text-center text-obsidian/60">
             Your cart and order details will be forwarded to our WhatsApp. No payment collected here.
           </p>
         </form>

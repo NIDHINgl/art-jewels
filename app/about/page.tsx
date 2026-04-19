@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
-import { Gem, Hammer, Leaf, Clock } from 'lucide-react';
+import { Gem, Hammer, Leaf, Clock, ArrowRight } from 'lucide-react';
 import { PAGE_META, BRAND_NAME } from '@/lib/constants';
 import { GlowingCard } from '@/components/ui/glowing-card';
+import { PrestigeButton } from '@/components/ui/prestige-button';
 
 export const metadata: Metadata = {
   title: PAGE_META.about.title,
@@ -44,7 +45,7 @@ export default function AboutPage() {
         <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 w-8 h-8 sm:w-12 sm:h-12 border border-gold/15 rotate-45 pointer-events-none" aria-hidden="true" />
 
         <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center">
-          <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-4">
+          <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-4">
             Our Story
           </p>
           <h1 className="font-display text-fluid-h1 text-white leading-tight mb-6">
@@ -52,7 +53,7 @@ export default function AboutPage() {
             <span className="italic text-champagne">An Intention</span>
           </h1>
           <div className="w-12 h-px bg-gold/40 mx-auto mb-6" aria-hidden="true" />
-          <p className="font-accent text-lg italic text-white/60 leading-relaxed">
+          <p className="font-accent text-lg italic text-white/80 leading-relaxed">
             {BRAND_NAME} was not born from a business plan. It was born from the inability to stop making things.
           </p>
         </div>
@@ -70,13 +71,13 @@ export default function AboutPage() {
           >
             The Beginning
           </h2>
-          <p className="font-accent text-lg italic text-obsidian/70 leading-relaxed border-l-2 border-gold/30 pl-5">
+          <p className="font-accent text-lg italic text-obsidian/80 leading-relaxed border-l-2 border-gold/30 pl-5">
             It started with a pair of earrings made for a friend&apos;s wedding. Then a ring for a sister&apos;s anniversary. Then a bracelet commissioned by a stranger who had seen the ring.
           </p>
-          <p className="font-body text-base text-obsidian/70 leading-relaxed">
+          <p className="font-body text-base text-obsidian/80 leading-relaxed">
             {BRAND_NAME} grew the way good things grow — slowly, organically, without a campaign. The atelier is small by design. We make a limited number of pieces each season, and we know every piece we sell.
           </p>
-          <p className="font-body text-base text-obsidian/70 leading-relaxed">
+          <p className="font-body text-base text-obsidian/80 leading-relaxed">
             Our jewellery is made in Thiruvananthapuram, Kerala, in a studio that smells of flux and silver polish. The tools are old. The craft is older. What we add to it is contemporary sensibility — clean lines, considered proportions, materials chosen for meaning as much as beauty.
           </p>
         </div>
@@ -141,7 +142,7 @@ export default function AboutPage() {
 
             {/* Content */}
             <div>
-              <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-4">
+              <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-4">
                 The Maker
               </p>
               <h2
@@ -150,7 +151,7 @@ export default function AboutPage() {
               >
                 Made by One Pair of Hands
               </h2>
-              <p className="font-accent text-lg italic text-obsidian/70 leading-relaxed mb-5">
+              <p className="font-accent text-lg italic text-obsidian/80 leading-relaxed mb-5">
                 There is no factory. There is no team of makers. There is one artisan who trained for five years before making a single piece that was worth selling.
               </p>
               <p className="font-body text-sm text-obsidian/60 leading-relaxed mb-5">
@@ -171,7 +172,7 @@ export default function AboutPage() {
       >
         <div className="max-w-site mx-auto">
           <div className="text-center mb-14">
-            <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-3">
+            <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-3">
               What We Stand For
             </p>
             <h2
@@ -202,18 +203,20 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-champagne/20 text-center">
-        <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-4">
+        <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-4">
           Find Your Piece
         </p>
         <h2 className="font-display text-fluid-h2 text-obsidian mb-6">
           Ready to Explore?
         </h2>
-        <a
+        <PrestigeButton
           href="/collections"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-velvet text-white font-body font-medium tracking-wide hover:bg-velvet/85 transition-colors"
-        >
-          Browse the Collection
-        </a>
+          icon={<ArrowRight />}
+          title="Browse the Collection"
+          variant="obsidian"
+          size="md"
+          className="mx-auto w-full sm:w-auto"
+        />
       </section>
     </div>
   );

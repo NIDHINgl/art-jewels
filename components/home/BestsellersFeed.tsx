@@ -36,7 +36,7 @@ export default function BestsellersFeed({ products }: BestsellersFeedProps) {
           ].join(' ')}
         >
           <div>
-            <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-2">
+            <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-2">
               Curated Picks
             </p>
             <h2 id="bestsellers-heading" className="font-display text-fluid-h2 text-obsidian">
@@ -45,7 +45,7 @@ export default function BestsellersFeed({ products }: BestsellersFeedProps) {
           </div>
           <Link
             href="/collections"
-            className="inline-flex items-center gap-2 font-accent text-sm tracking-wider text-gold hover:text-gold-light transition-colors group shrink-0"
+            className="inline-flex items-center gap-2 font-body font-medium text-sm tracking-wider text-gold hover:text-gold-light transition-colors group shrink-0"
           >
             View all
             <ArrowRight

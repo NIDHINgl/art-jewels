@@ -137,7 +137,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           <span
             className={cn(
               'absolute top-3 left-3 z-10 inline-flex items-center px-2.5 py-1 rounded-full',
-              'font-accent text-[9px] tracking-[0.3em] uppercase backdrop-blur-sm',
+              'font-body font-semibold text-[9px] tracking-[0.3em] uppercase backdrop-blur-sm',
               primaryBadge.tone === 'gold' &&
                 'bg-gold/95 text-white border border-gold-bright/60',
               primaryBadge.tone === 'rose' &&
@@ -231,12 +231,12 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       <div className="flex flex-col gap-2 px-4 pt-3.5 pb-4 flex-1">
         {/* Category eyebrow — small, tracked, gold */}
         <div className="flex items-center justify-between">
-          <p className="font-accent text-[9px] sm:text-[10px] tracking-[0.35em] uppercase text-gold/90">
+          <p className="font-body font-semibold text-[9px] sm:text-[10px] tracking-[0.35em] uppercase text-gold/90">
             {product.category}
           </p>
           {/* Material chip on the right — subtle */}
           {product.material[0] && (
-            <p className="font-accent italic text-[10px] text-obsidian/45 capitalize truncate max-w-[55%]">
+            <p className="font-accent italic text-[10px] text-obsidian/65 capitalize truncate max-w-[55%]">
               {product.material[0]}
             </p>
           )}
@@ -275,7 +275,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             </button>
           )}
           {!product.inStock && (
-            <span className="font-accent italic text-[11px] text-obsidian/40">
+            <span className="font-accent italic text-[11px] text-obsidian/60">
               Sold out
             </span>
           )}

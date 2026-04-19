@@ -31,7 +31,7 @@ export default function CartPageClient() {
       {/* Page header */}
       <div className="bg-pearl border-b border-platinum">
         <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-          <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-2">
+          <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-2">
             Your Selection
           </p>
           <h1 className="font-display text-fluid-h1 text-obsidian">
@@ -75,7 +75,7 @@ export default function CartPageClient() {
                 </p>
                 <button
                   onClick={() => setClearModalOpen(true)}
-                  className="flex items-center gap-1.5 font-accent text-sm italic text-obsidian/40 hover:text-rose-gold transition-colors"
+                  className="flex items-center gap-1.5 font-accent text-sm italic text-obsidian/60 hover:text-rose-gold transition-colors"
                 >
                   <Trash2 size={13} aria-hidden="true" />
                   Clear cart
@@ -90,7 +90,7 @@ export default function CartPageClient() {
                       {['Product', 'Price', 'Quantity', 'Subtotal'].map((h) => (
                         <th
                           key={h}
-                          className="text-left pb-3 font-body text-xs font-semibold tracking-widest uppercase text-obsidian/40 pr-4 last:pr-0"
+                          className="text-left pb-3 font-body text-xs font-semibold tracking-widest uppercase text-obsidian/60 pr-4 last:pr-0"
                         >
                           {h}
                         </th>

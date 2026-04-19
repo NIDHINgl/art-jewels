@@ -129,7 +129,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
               {/* Eyebrow label */}
               <label
                 htmlFor="global-search"
-                className="font-accent text-xs tracking-[0.3em] uppercase text-gold/80 mb-2 block"
+                className="font-body font-semibold text-xs tracking-[0.3em] uppercase text-gold/80 mb-2 block"
               >
                 Search the atelier
               </label>
@@ -192,7 +192,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       animate="show"
                       exit="exit"
                     >
-                      <p className="font-accent text-xs tracking-[0.25em] uppercase text-obsidian/40 mb-3 px-2">
+                      <p className="font-body font-semibold text-xs tracking-[0.25em] uppercase text-obsidian/60 mb-3 px-2">
                         Popular
                       </p>
                       <ul className="flex flex-col gap-1" role="list">
@@ -245,7 +245,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                       animate="show"
                       exit="exit"
                     >
-                      <p className="font-accent text-xs tracking-[0.25em] uppercase text-obsidian/40 mb-3 px-2">
+                      <p className="font-body font-semibold text-xs tracking-[0.25em] uppercase text-obsidian/60 mb-3 px-2">
                         {results.length} piece{results.length !== 1 ? 's' : ''} found
                       </p>
                       <ul className="flex flex-col gap-1" role="list">
@@ -304,7 +304,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
               </div>
 
               {/* Keyboard hint footer */}
-              <div className="mt-4 pt-3 border-t border-platinum/80 flex items-center justify-between font-accent text-[11px] tracking-wider uppercase text-obsidian/40">
+              <div className="mt-4 pt-3 border-t border-platinum/80 flex items-center justify-between font-body font-semibold text-[11px] tracking-wider uppercase text-obsidian/60">
                 <span className="flex items-center gap-1.5">
                   {query.length > 0 ? (
                     <>

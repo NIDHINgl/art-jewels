@@ -69,13 +69,13 @@ export default function ContactPageClient() {
           <Link
             href="/"
             aria-label="Back to home"
-            className="sm:hidden inline-flex items-center gap-1.5 font-accent text-xs tracking-wider text-obsidian/60 hover:text-gold transition-colors mb-5 -ml-1"
+            className="sm:hidden inline-flex items-center gap-1.5 font-body font-medium text-xs tracking-wider text-obsidian/60 hover:text-gold transition-colors mb-5 -ml-1"
           >
             <ArrowLeft size={14} aria-hidden="true" />
             Back to Home
           </Link>
 
-          <p className="font-accent text-[10px] sm:text-xs tracking-[0.45em] uppercase text-obsidian/40 mb-2">
+          <p className="font-body font-semibold text-[10px] sm:text-xs tracking-[0.45em] uppercase text-obsidian/60 mb-2">
             <Link href="/" className="hover:text-gold transition-colors">
               Home
             </Link>
@@ -128,7 +128,7 @@ export default function ContactPageClient() {
               <div className="relative p-8 sm:p-10 flex flex-col items-start gap-4">
                 <span className="inline-flex items-center gap-2">
                   <span className="w-6 h-px bg-gold/80" aria-hidden="true" />
-                  <p className="font-accent text-[10px] tracking-[0.45em] uppercase text-gold">
+                  <p className="font-body font-semibold text-[10px] tracking-[0.45em] uppercase text-gold">
                     Direct Line
                   </p>
                 </span>
@@ -137,7 +137,7 @@ export default function ContactPageClient() {
                   Talk to us on <span className="italic text-gold">WhatsApp</span>
                 </h2>
 
-                <p className="font-accent italic text-sm text-white/55 leading-relaxed">
+                <p className="font-accent italic text-sm text-white/75 leading-relaxed">
                   The fastest way to reach us. We reply within a few hours
                   during business hours — often sooner.
                 </p>
@@ -167,7 +167,7 @@ export default function ContactPageClient() {
 
             {/* Other channels — two tiles side by side on sm+ */}
             <div>
-              <p className="font-accent text-xs tracking-[0.4em] uppercase text-gold mb-3">
+              <p className="font-body font-semibold text-xs tracking-[0.4em] uppercase text-gold mb-3">
                 Or reach us via
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -193,13 +193,13 @@ export default function ContactPageClient() {
                         aria-hidden="true"
                       />
                     </div>
-                    <p className="font-accent text-[10px] tracking-[0.3em] uppercase text-obsidian/40">
+                    <p className="font-body font-semibold text-[10px] tracking-[0.3em] uppercase text-obsidian/60">
                       {label}
                     </p>
                     <p className="font-body text-sm font-medium text-obsidian truncate">
                       {value}
                     </p>
-                    <p className="font-accent italic text-[11px] text-obsidian/40 mt-auto">
+                    <p className="font-accent italic text-[11px] text-obsidian/60 mt-auto">
                       {response}
                     </p>
                   </a>
@@ -211,7 +211,7 @@ export default function ContactPageClient() {
             <div className="bg-pearl border border-platinum rounded-sm p-5 sm:p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Clock size={14} className="text-gold" aria-hidden="true" />
-                <p className="font-accent text-[10px] tracking-[0.4em] uppercase text-gold">
+                <p className="font-body font-semibold text-[10px] tracking-[0.4em] uppercase text-gold">
                   Studio Hours
                 </p>
               </div>
@@ -221,7 +221,7 @@ export default function ContactPageClient() {
                     key={day}
                     className="flex items-baseline justify-between gap-4 py-2.5 first:pt-0 last:pb-0"
                   >
-                    <span className="font-body text-sm text-obsidian/70">{day}</span>
+                    <span className="font-body text-sm text-obsidian/80">{day}</span>
                     <span className="font-accent italic text-sm text-obsidian tabular-nums">
                       {time}
                     </span>
@@ -235,7 +235,7 @@ export default function ContactPageClient() {
                   <p className="font-body text-sm text-obsidian/80 leading-snug">
                     Thiruvananthapuram
                   </p>
-                  <p className="font-accent italic text-xs text-obsidian/45">
+                  <p className="font-accent italic text-xs text-obsidian/65">
                     Kerala, India &middot; by appointment
                   </p>
                 </div>
@@ -255,7 +255,7 @@ export default function ContactPageClient() {
               </div>
 
               <div className="sm:p-8 md:p-10 sm:bg-pearl/40">
-                <p className="font-accent text-xs tracking-[0.4em] uppercase text-gold mb-2">
+                <p className="font-body font-semibold text-xs tracking-[0.4em] uppercase text-gold mb-2">
                   Write to us
                 </p>
                 <h2 className="font-display text-2xl sm:text-3xl text-obsidian mb-2">
@@ -313,7 +313,7 @@ export default function ContactPageClient() {
                         <div key={id}>
                           <label
                             htmlFor={id}
-                            className="block font-accent text-[10px] tracking-[0.4em] uppercase text-gold/80 mb-2"
+                            className="block font-body font-semibold text-[10px] tracking-[0.4em] uppercase text-gold/80 mb-2"
                           >
                             {label}
                           </label>
@@ -337,7 +337,7 @@ export default function ContactPageClient() {
                     <div>
                       <label
                         htmlFor="contact-subject"
-                        className="block font-accent text-[10px] tracking-[0.4em] uppercase text-gold/80 mb-2"
+                        className="block font-body font-semibold text-[10px] tracking-[0.4em] uppercase text-gold/80 mb-2"
                       >
                         Subject{' '}
                         <span className="text-obsidian/30 normal-case tracking-normal font-body italic">
@@ -360,7 +360,7 @@ export default function ContactPageClient() {
                     <div>
                       <label
                         htmlFor="contact-message"
-                        className="block font-accent text-[10px] tracking-[0.4em] uppercase text-gold/80 mb-2"
+                        className="block font-body font-semibold text-[10px] tracking-[0.4em] uppercase text-gold/80 mb-2"
                       >
                         Message
                       </label>

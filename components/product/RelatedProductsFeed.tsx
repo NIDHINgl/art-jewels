@@ -36,7 +36,7 @@ export default function RelatedProductsFeed({
     >
       <div className="max-w-site mx-auto">
         <div className="mb-8">
-          <p className="font-accent text-xs tracking-[0.4em] uppercase text-gold mb-2">
+          <p className="font-body font-semibold text-xs tracking-[0.4em] uppercase text-gold mb-2">
             Further in the Atelier
           </p>
           <h2 id="related-heading" className="font-display text-fluid-h3 text-obsidian">

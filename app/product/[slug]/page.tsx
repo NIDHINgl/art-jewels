@@ -61,7 +61,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
       <div className="min-h-screen bg-ivory pt-20 sm:pt-24">
         <nav aria-label="Breadcrumb" className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <ol className="flex items-center gap-2 text-xs font-accent text-obsidian/40" role="list">
+          <ol className="flex items-center gap-2 text-xs font-accent text-obsidian/60" role="list">
             <li><a href="/" className="hover:text-gold transition-colors">Home</a></li>
             <li aria-hidden="true">/</li>
             <li><a href="/collections" className="hover:text-gold transition-colors">Collections</a></li>
@@ -71,7 +71,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 className="hover:text-gold transition-colors capitalize">{product.category}</a>
             </li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-obsidian/70 truncate max-w-[160px]">{product.name}</li>
+            <li aria-current="page" className="text-obsidian/80 truncate max-w-[160px]">{product.name}</li>
           </ol>
         </nav>
 

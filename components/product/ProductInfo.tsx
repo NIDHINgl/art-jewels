@@ -64,7 +64,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       </div>
 
       {/* Category eyebrow */}
-      <p className="font-accent text-xs tracking-[0.4em] uppercase text-gold -mb-3">
+      <p className="font-body font-semibold text-xs tracking-[0.4em] uppercase text-gold -mb-3">
         {product.category}
       </p>
 
@@ -85,7 +85,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       </div>
 
       {/* Short description */}
-      <p className="font-accent text-base italic text-obsidian/70 leading-relaxed border-l-2 border-gold/30 pl-4">
+      <p className="font-accent text-base italic text-obsidian/80 leading-relaxed border-l-2 border-gold/30 pl-4">
         {product.description}
       </p>
 
@@ -93,7 +93,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       <dl className="grid grid-cols-2 gap-x-6 gap-y-3">
         {product.material.length > 0 && (
           <>
-            <dt className="font-body text-xs font-semibold tracking-widest uppercase text-obsidian/40">Material</dt>
+            <dt className="font-body text-xs font-semibold tracking-widest uppercase text-obsidian/60">Material</dt>
             <dd className="font-accent text-sm text-obsidian capitalize">
               {product.material.map(formatLabel).join(', ')}
             </dd>
@@ -101,19 +101,19 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         )}
         {product.style && (
           <>
-            <dt className="font-body text-xs font-semibold tracking-widest uppercase text-obsidian/40">Style</dt>
+            <dt className="font-body text-xs font-semibold tracking-widest uppercase text-obsidian/60">Style</dt>
             <dd className="font-accent text-sm text-obsidian capitalize">{product.style}</dd>
           </>
         )}
         {product.weight && (
           <>
-            <dt className="font-body text-xs font-semibold tracking-widest uppercase text-obsidian/40">Weight</dt>
+            <dt className="font-body text-xs font-semibold tracking-widest uppercase text-obsidian/60">Weight</dt>
             <dd className="font-accent text-sm text-obsidian">{product.weight}</dd>
           </>
         )}
         {product.dimensions && (
           <>
-            <dt className="font-body text-xs font-semibold tracking-widest uppercase text-obsidian/40">Dimensions</dt>
+            <dt className="font-body text-xs font-semibold tracking-widest uppercase text-obsidian/60">Dimensions</dt>
             <dd className="font-accent text-sm text-obsidian">{product.dimensions}</dd>
           </>
         )}
@@ -135,7 +135,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                   'px-4 py-2 font-body text-sm border rounded-sm transition-all',
                   selectedSize === size
                     ? 'border-gold bg-gold/5 text-gold font-medium'
-                    : 'border-platinum-dark text-obsidian/70 hover:border-gold hover:text-obsidian',
+                    : 'border-platinum-dark text-obsidian/80 hover:border-gold hover:text-obsidian',
                 ].join(' ')}
               >
                 {size}
@@ -239,7 +239,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           isOpen={descOpen}
           onToggle={() => setDescOpen((v) => !v)}
         >
-          <p className="font-accent text-sm leading-relaxed text-obsidian/70 whitespace-pre-line italic">
+          <p className="font-accent text-sm leading-relaxed text-obsidian/80 whitespace-pre-line italic">
             {product.fullDescription}
           </p>
         </AccordionItem>
@@ -250,7 +250,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           isOpen={careOpen}
           onToggle={() => setCareOpen((v) => !v)}
         >
-          <p className="font-accent text-sm leading-relaxed text-obsidian/70 italic">
+          <p className="font-accent text-sm leading-relaxed text-obsidian/80 italic">
             {product.careInstructions}
           </p>
         </AccordionItem>
@@ -261,7 +261,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           isOpen={shippingOpen}
           onToggle={() => setShippingOpen((v) => !v)}
         >
-          <div className="font-accent text-sm leading-relaxed text-obsidian/70 italic space-y-2">
+          <div className="font-accent text-sm leading-relaxed text-obsidian/80 italic space-y-2">
             <p>All orders are dispatched within 3–5 business days. Custom pieces require 10–14 days.</p>
             <p>We ship across India via insured courier. Packaging is minimal, considered, and recyclable.</p>
             <p>If a piece arrives damaged, contact us within 48 hours with photographs. We will arrange a replacement or refund.</p>
@@ -294,9 +294,9 @@ function AccordionItem({
           {title}
         </span>
         {isOpen ? (
-          <ChevronUp size={16} className="text-obsidian/40" aria-hidden="true" />
+          <ChevronUp size={16} className="text-obsidian/60" aria-hidden="true" />
         ) : (
-          <ChevronDown size={16} className="text-obsidian/40" aria-hidden="true" />
+          <ChevronDown size={16} className="text-obsidian/60" aria-hidden="true" />
         )}
       </button>
       {isOpen && (

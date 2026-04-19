@@ -26,7 +26,7 @@ export default function NotFound() {
               <Compass className="text-gold" />
             </EmptyMedia>
 
-            <p className="font-accent text-xs tracking-[0.4em] uppercase text-gold mb-1">
+            <p className="font-body font-semibold text-xs tracking-[0.4em] uppercase text-gold mb-1">
               Lost in the Atelier
             </p>
 
@@ -66,7 +66,7 @@ export default function NotFound() {
               />
             </div>
 
-            <p className="font-accent text-[10px] tracking-[0.3em] uppercase text-obsidian/30 mt-4">
+            <p className="font-body font-semibold text-[10px] tracking-[0.3em] uppercase text-obsidian/30 mt-4">
               {BRAND_NAME} — Handcrafted Elegance
             </p>
           </EmptyContent>

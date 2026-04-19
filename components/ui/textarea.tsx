@@ -9,7 +9,7 @@ const textareaVariants = cva(
   [
     'w-full bg-pearl border border-platinum-dark font-body text-obsidian',
     'shadow-sm shadow-black/[0.04]',
-    'placeholder:text-obsidian/40 placeholder:italic placeholder:font-accent',
+    'placeholder:text-obsidian/60 placeholder:italic placeholder:font-accent',
     'transition-[color,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
     'focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/25',
     'disabled:cursor-not-allowed disabled:opacity-50 read-only:opacity-75',

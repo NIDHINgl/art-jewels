@@ -109,7 +109,7 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
         <button
           onClick={handleRemove}
           aria-label={`Remove ${currentProduct.name} from cart`}
-          className="shrink-0 self-start w-9 h-9 flex items-center justify-center text-obsidian/40 hover:text-rose-gold hover:bg-rose-gold/10 rounded-sm transition-colors -mr-1.5 -mt-1.5"
+          className="shrink-0 self-start w-9 h-9 flex items-center justify-center text-obsidian/60 hover:text-rose-gold hover:bg-rose-gold/10 rounded-sm transition-colors -mr-1.5 -mt-1.5"
         >
           <Trash2 size={14} aria-hidden="true" />
         </button>
@@ -160,7 +160,7 @@ export default function CartItem({ item, compact = false }: CartItemProps) {
             )}
             <button
               onClick={handleRemove}
-              className="mt-2 flex items-center gap-1 font-accent text-xs text-obsidian/40 hover:text-rose-gold transition-colors"
+              className="mt-2 flex items-center gap-1 font-accent text-xs text-obsidian/60 hover:text-rose-gold transition-colors"
             >
               <Trash2 size={11} aria-hidden="true" />
               Remove

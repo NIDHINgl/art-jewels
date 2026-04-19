@@ -122,7 +122,7 @@ export default function CraftsmanshipStory() {
               isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8',
             ].join(' ')}
           >
-            <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-4">
+            <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-4">
               The Atelier
             </p>
             <h2

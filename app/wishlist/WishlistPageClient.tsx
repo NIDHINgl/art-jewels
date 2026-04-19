@@ -35,7 +35,7 @@ export default function WishlistPageClient() {
       {/* Page header */}
       <div className="bg-pearl border-b border-platinum">
         <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-          <p className="font-accent text-sm tracking-[0.4em] uppercase text-gold mb-2">
+          <p className="font-body font-semibold text-sm tracking-[0.4em] uppercase text-gold mb-2">
             Your Saved Pieces
           </p>
           <h1 className="font-display text-fluid-h1 text-obsidian">Wishlist</h1>
@@ -55,7 +55,7 @@ export default function WishlistPageClient() {
               <span className="absolute bottom-0 right-0 w-3 h-3 border-r border-b border-gold/60" aria-hidden="true" />
             </div>
             <div>
-              <p className="font-accent text-xs tracking-[0.4em] uppercase text-gold mb-2">
+              <p className="font-body font-semibold text-xs tracking-[0.4em] uppercase text-gold mb-2">
                 Nothing Saved Yet
               </p>
               <h2 className="font-display text-2xl sm:text-3xl text-obsidian mb-2">
