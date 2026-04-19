@@ -23,6 +23,13 @@ const INITIAL_FORM: CheckoutFormData = {
   notes: '',
 };
 
+const FIELD_LIMITS: Record<keyof CheckoutFormData, number> = {
+  fullName: 80,
+  phone: 20,
+  address: 500,
+  notes: 500,
+};
+
 type Stage = 'form' | 'success';
 
 export default function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
@@ -134,9 +141,12 @@ export default function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
               id="checkout-name"
               type="text"
               value={formData.fullName}
-              onChange={(e) => setFormData((f) => ({ ...f, fullName: e.target.value }))}
+              onChange={(e) =>
+                setFormData((f) => ({ ...f, fullName: e.target.value.slice(0, FIELD_LIMITS.fullName) }))
+              }
               placeholder="Your full name"
               autoComplete="name"
+              maxLength={FIELD_LIMITS.fullName}
               className={[
                 'w-full px-4 py-3 border font-body text-sm text-obsidian bg-ivory',
                 'outline-none transition-colors rounded-sm',
@@ -165,10 +175,14 @@ export default function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
             <input
               id="checkout-phone"
               type="tel"
+              inputMode="tel"
               value={formData.phone}
-              onChange={(e) => setFormData((f) => ({ ...f, phone: e.target.value }))}
+              onChange={(e) =>
+                setFormData((f) => ({ ...f, phone: e.target.value.slice(0, FIELD_LIMITS.phone) }))
+              }
               placeholder="+91 98765 43210"
               autoComplete="tel"
+              maxLength={FIELD_LIMITS.phone}
               className={[
                 'w-full px-4 py-3 border font-body text-sm text-obsidian bg-ivory',
                 'outline-none transition-colors rounded-sm',
@@ -188,39 +202,71 @@ export default function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
 
           {/* Address */}
           <div>
-            <label
-              htmlFor="checkout-address"
-              className="block font-body text-xs font-semibold tracking-wider uppercase text-obsidian/60 mb-2"
-            >
-              Delivery Address{' '}
-              <span className="text-obsidian/30 normal-case font-normal">(optional)</span>
-            </label>
+            <div className="flex items-baseline justify-between mb-2 gap-2">
+              <label
+                htmlFor="checkout-address"
+                className="block font-body text-xs font-semibold tracking-wider uppercase text-obsidian/60"
+              >
+                Delivery Address{' '}
+                <span className="text-obsidian/30 normal-case font-normal">(optional)</span>
+              </label>
+              <span
+                className={[
+                  'font-body text-[10px] tabular-nums',
+                  formData.address.length >= FIELD_LIMITS.address
+                    ? 'text-rose-gold'
+                    : 'text-obsidian/45',
+                ].join(' ')}
+                aria-live="polite"
+              >
+                {formData.address.length} / {FIELD_LIMITS.address}
+              </span>
+            </div>
             <Textarea
               id="checkout-address"
               value={formData.address}
-              onChange={(e) => setFormData((f) => ({ ...f, address: e.target.value }))}
+              onChange={(e) =>
+                setFormData((f) => ({ ...f, address: e.target.value.slice(0, FIELD_LIMITS.address) }))
+              }
               placeholder="Your delivery address"
               rows={3}
               autoComplete="street-address"
+              maxLength={FIELD_LIMITS.address}
               className="resize-none"
             />
           </div>
 
           {/* Notes */}
           <div>
-            <label
-              htmlFor="checkout-notes"
-              className="block font-body text-xs font-semibold tracking-wider uppercase text-obsidian/60 mb-2"
-            >
-              Notes{' '}
-              <span className="text-obsidian/30 normal-case font-normal">(optional)</span>
-            </label>
+            <div className="flex items-baseline justify-between mb-2 gap-2">
+              <label
+                htmlFor="checkout-notes"
+                className="block font-body text-xs font-semibold tracking-wider uppercase text-obsidian/60"
+              >
+                Notes{' '}
+                <span className="text-obsidian/30 normal-case font-normal">(optional)</span>
+              </label>
+              <span
+                className={[
+                  'font-body text-[10px] tabular-nums',
+                  formData.notes.length >= FIELD_LIMITS.notes
+                    ? 'text-rose-gold'
+                    : 'text-obsidian/45',
+                ].join(' ')}
+                aria-live="polite"
+              >
+                {formData.notes.length} / {FIELD_LIMITS.notes}
+              </span>
+            </div>
             <Textarea
               id="checkout-notes"
               value={formData.notes}
-              onChange={(e) => setFormData((f) => ({ ...f, notes: e.target.value }))}
+              onChange={(e) =>
+                setFormData((f) => ({ ...f, notes: e.target.value.slice(0, FIELD_LIMITS.notes) }))
+              }
               placeholder="Gift wrapping, custom engraving, special requests…"
               rows={2}
+              maxLength={FIELD_LIMITS.notes}
               className="resize-none"
             />
           </div>

@@ -141,10 +141,11 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   ref={inputRef}
                   type="search"
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
+                  onChange={(e) => setQuery(e.target.value.slice(0, 100))}
                   placeholder="Rings, materials, styles…"
                   className="h-12 pl-4 pr-12 text-base"
                   aria-label="Search products"
+                  maxLength={100}
                 />
 
                 {/* Right side: Search ↔ Send ↔ Clear icon swap */}

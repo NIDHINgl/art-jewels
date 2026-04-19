@@ -56,22 +56,13 @@ Notes: ${formData.notes.trim() || 'None'}
   return `https://wa.me/${SELLER_WHATSAPP}?text=${encodeURIComponent(message)}`;
 }
 
-// ─── Slug Utilities ───────────────────────────────────────────────────────────
-export function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-');
-}
-
 // ─── String Utilities ─────────────────────────────────────────────────────────
 export function truncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
   return `${text.slice(0, maxLength).trim()}…`;
 }
 
-export function capitalise(text: string): string {
+function capitalise(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
@@ -85,12 +76,6 @@ export function formatLabel(value: string): string {
 // ─── ID Generator for Toasts ─────────────────────────────────────────────────
 export function generateId(): string {
   return Math.random().toString(36).slice(2, 9);
-}
-
-// ─── Reduced Motion Check ─────────────────────────────────────────────────────
-export function prefersReducedMotion(): boolean {
-  if (typeof window === 'undefined') return false;
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
 // ─── Price Range Extraction ───────────────────────────────────────────────────

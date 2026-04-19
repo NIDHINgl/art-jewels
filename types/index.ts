@@ -80,20 +80,3 @@ export interface CheckoutFormData {
   address: string;
   notes: string;
 }
-
-export interface Testimonial {
-  id: string;
-  quote: string;
-  customerName: string;
-  rating: number;
-  initials: string;
-  location: string;
-}
-
-export interface CategoryCard {
-  category: Category;
-  label: string;
-  description: string;
-  image: string;
-  count: number;
-}

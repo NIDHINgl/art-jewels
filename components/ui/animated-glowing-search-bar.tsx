@@ -104,10 +104,11 @@ export function GlowingSearchBar({
         id={id}
         type="text"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value.slice(0, 100))}
         placeholder={effectivePlaceholder}
         aria-label={ariaLabel}
         autoComplete="off"
+        maxLength={100}
         className={cn(
           'w-full h-full rounded-sm',
           'bg-pearl border border-platinum-dark/50',

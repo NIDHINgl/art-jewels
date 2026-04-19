@@ -13,7 +13,7 @@ const textareaVariants = cva(
     'transition-[color,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
     'focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/25',
     'disabled:cursor-not-allowed disabled:opacity-50 read-only:opacity-75',
-    'aria-invalid:border-red-500/60 aria-invalid:ring-red-500/10',
+    'aria-invalid:border-rose-gold/70 aria-invalid:focus-visible:ring-rose-gold/20',
   ].join(' '),
   {
     variants: {

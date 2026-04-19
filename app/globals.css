@@ -212,12 +212,6 @@ h1, h2, h3, h4, h5, h6 {
   animation: float ease-in-out infinite;
 }
 
-/* ─── Sparkle Twinkle ───────────────────────────────────────────────────────── */
-@keyframes twinkle {
-  0%, 100% { opacity: 0; transform: scale(0.5); }
-  50% { opacity: 1; transform: scale(1); }
-}
-
 /* ─── Bounce Scale ──────────────────────────────────────────────────────────── */
 @keyframes bounceScale {
   0% { transform: scale(1); }

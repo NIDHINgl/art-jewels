@@ -10,7 +10,6 @@ export const SELLER_EMAIL = 'hello@lumora.in';
 export const SELLER_INSTAGRAM = 'https://instagram.com/lumorajewels';
 
 // ─── Currency ────────────────────────────────────────────────────────────────
-export const CURRENCY_CODE = 'INR';
 export const CURRENCY_SYMBOL = '₹';
 export const CURRENCY_LOCALE = 'en-IN';
 

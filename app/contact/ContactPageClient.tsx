@@ -22,12 +22,41 @@ import {
 import { PrestigeButton } from '@/components/ui/prestige-button';
 import { Textarea } from '@/components/ui/textarea';
 
+const FIELD_LIMITS = {
+  name: 80,
+  email: 120,
+  subject: 120,
+  message: 1500,
+} as const;
+
+type ContactField = 'name' | 'email' | 'subject' | 'message';
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
 export default function ContactPageClient() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [errors, setErrors] = useState<Partial<Record<ContactField, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+
+  const validate = (): boolean => {
+    const next: Partial<Record<ContactField, string>> = {};
+    if (!form.name.trim()) next.name = 'Name is required';
+    if (!form.email.trim()) next.email = 'Email is required';
+    else if (!EMAIL_REGEX.test(form.email.trim())) next.email = 'Enter a valid email address';
+    if (!form.message.trim()) next.message = 'Message is required';
+    else if (form.message.trim().length < 10) next.message = 'Message should be at least 10 characters';
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  const updateField = (key: ContactField, value: string) => {
+    setForm((f) => ({ ...f, [key]: value.slice(0, FIELD_LIMITS[key]) }));
+    if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) return;
     setSubmitted(true);
   };
 
@@ -309,28 +338,42 @@ export default function ContactPageClient() {
                           placeholder: 'your@email.com',
                           autoComplete: 'email',
                         },
-                      ].map(({ id, label, type, key, placeholder, autoComplete }) => (
-                        <div key={id}>
-                          <label
-                            htmlFor={id}
-                            className="block font-body font-semibold text-[10px] tracking-[0.4em] uppercase text-gold/80 mb-2"
-                          >
-                            {label}
-                          </label>
-                          <input
-                            id={id}
-                            type={type}
-                            required
-                            value={form[key]}
-                            onChange={(e) =>
-                              setForm((f) => ({ ...f, [key]: e.target.value }))
-                            }
-                            placeholder={placeholder}
-                            autoComplete={autoComplete}
-                            className="w-full h-12 px-4 border border-platinum-dark bg-pearl font-body text-sm text-obsidian placeholder-obsidian/30 outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-[border,box-shadow] duration-300 rounded-sm"
-                          />
-                        </div>
-                      ))}
+                      ].map(({ id, label, type, key, placeholder, autoComplete }) => {
+                        const err = errors[key];
+                        return (
+                          <div key={id}>
+                            <label
+                              htmlFor={id}
+                              className="block font-body font-semibold text-[10px] tracking-[0.4em] uppercase text-gold/80 mb-2"
+                            >
+                              {label}
+                            </label>
+                            <input
+                              id={id}
+                              type={type}
+                              required
+                              value={form[key]}
+                              onChange={(e) => updateField(key, e.target.value)}
+                              placeholder={placeholder}
+                              autoComplete={autoComplete}
+                              maxLength={FIELD_LIMITS[key]}
+                              aria-invalid={err ? 'true' : undefined}
+                              aria-describedby={err ? `${id}-error` : undefined}
+                              className={[
+                                'w-full h-12 px-4 border bg-pearl font-body text-sm text-obsidian placeholder-obsidian/30 outline-none focus:ring-2 transition-[border,box-shadow] duration-300 rounded-sm',
+                                err
+                                  ? 'border-rose-gold/70 focus:border-rose-gold focus:ring-rose-gold/20'
+                                  : 'border-platinum-dark focus:border-gold focus:ring-gold/20',
+                              ].join(' ')}
+                            />
+                            {err && (
+                              <p id={`${id}-error`} role="alert" className="mt-1.5 font-body text-xs text-rose-gold">
+                                {err}
+                              </p>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
 
                     {/* Subject */}
@@ -348,34 +391,52 @@ export default function ContactPageClient() {
                         id="contact-subject"
                         type="text"
                         value={form.subject}
-                        onChange={(e) =>
-                          setForm((f) => ({ ...f, subject: e.target.value }))
-                        }
+                        onChange={(e) => updateField('subject', e.target.value)}
                         placeholder="Custom piece · Sizing · Order status"
+                        maxLength={FIELD_LIMITS.subject}
                         className="w-full h-12 px-4 border border-platinum-dark bg-pearl font-body text-sm text-obsidian placeholder-obsidian/30 outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-[border,box-shadow] duration-300 rounded-sm"
                       />
                     </div>
 
                     {/* Message */}
                     <div>
-                      <label
-                        htmlFor="contact-message"
-                        className="block font-body font-semibold text-[10px] tracking-[0.4em] uppercase text-gold/80 mb-2"
-                      >
-                        Message
-                      </label>
+                      <div className="flex items-baseline justify-between mb-2 gap-2">
+                        <label
+                          htmlFor="contact-message"
+                          className="block font-body font-semibold text-[10px] tracking-[0.4em] uppercase text-gold/80"
+                        >
+                          Message
+                        </label>
+                        <span
+                          className={[
+                            'font-body text-[10px] tabular-nums',
+                            form.message.length >= FIELD_LIMITS.message
+                              ? 'text-rose-gold'
+                              : 'text-obsidian/45',
+                          ].join(' ')}
+                          aria-live="polite"
+                        >
+                          {form.message.length} / {FIELD_LIMITS.message}
+                        </span>
+                      </div>
                       <Textarea
                         id="contact-message"
                         required
                         rows={6}
                         value={form.message}
-                        onChange={(e) =>
-                          setForm((f) => ({ ...f, message: e.target.value }))
-                        }
+                        onChange={(e) => updateField('message', e.target.value)}
                         placeholder="Your enquiry — custom piece, sizing question, order status…"
                         variant="lg"
+                        maxLength={FIELD_LIMITS.message}
+                        aria-invalid={errors.message ? 'true' : undefined}
+                        aria-describedby={errors.message ? 'contact-message-error' : undefined}
                         className="resize-none"
                       />
+                      {errors.message && (
+                        <p id="contact-message-error" role="alert" className="mt-1.5 font-body text-xs text-rose-gold">
+                          {errors.message}
+                        </p>
+                      )}
                     </div>
 
                     <PrestigeButton

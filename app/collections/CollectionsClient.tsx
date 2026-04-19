@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { SlidersHorizontal, X, ArrowLeft } from 'lucide-react';
+import { SlidersHorizontal, X, ArrowLeft, Check } from 'lucide-react';
 import Link from 'next/link';
 import type { FilterState, SortOption, Category, Material, Style, Product } from '@/types';
 import { getPriceRange, debounce } from '@/lib/utils';
@@ -11,7 +11,6 @@ import ProductCard from '@/components/product/ProductCard';
 import FilterSidebar from '@/components/filters/FilterSidebar';
 import FilterChips from '@/components/filters/FilterChips';
 import SortDropdown from '@/components/filters/SortDropdown';
-import Button from '@/components/ui/Button';
 import { ProductCardSkeleton } from '@/components/ui/Skeleton';
 import { GlowingSearchBar } from '@/components/ui/animated-glowing-search-bar';
 import { cn } from '@/lib/utils';
@@ -338,8 +337,10 @@ export default function CollectionsPageClient() {
             </div>
           </aside>
 
-          {/* Grid */}
-          <div className="flex-1 min-w-0">
+          {/* Grid — lg:min-h reserves vertical space so filter toggles don't
+               collapse the page height (which otherwise causes the viewport
+               to jump when the user has scrolled past the top). */}
+          <div className="flex-1 min-w-0 lg:min-h-[calc(100vh-220px)]">
             {dataLoading ? (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-5 sm:gap-7">
                 {Array.from({ length: 9 }).map((_, i) => <ProductCardSkeleton key={i} />)}
@@ -443,9 +444,15 @@ export default function CollectionsPageClient() {
               <FilterSidebar filters={filters} onFilterChange={f => { handleFilterChange(f); }} priceRange={defaultPriceRange} />
             </div>
             <div className="sticky bottom-0 p-4 bg-ivory border-t border-platinum">
-              <Button variant="primary" fullWidth onClick={() => setSidebarOpen(false)}>
-                Show {sorted.length} Result{sorted.length !== 1 ? 's' : ''}
-              </Button>
+              <PrestigeButton
+                type="button"
+                onClick={() => setSidebarOpen(false)}
+                icon={<Check />}
+                title={`Show ${sorted.length} Result${sorted.length !== 1 ? 's' : ''}`}
+                variant="obsidian"
+                size="md"
+                className="w-full"
+              />
             </div>
           </div>
         </div>
