@@ -2,7 +2,7 @@
 // Single source of truth for the brand name. To rename the store, change this
 // one line — every page title, meta description, footer, navbar, hero,
 // breadcrumb, and JSX reference is derived from BRAND_NAME.
-export const BRAND_NAME = 'Malli aunty jewels';
+export const BRAND_NAME = 'LUMORA';
 export const BRAND_TAGLINE = 'Handcrafted Elegance, Worn with Intent';
 export const BRAND_DESCRIPTION = `${BRAND_NAME} is a fine art jewellery atelier crafting heirloom-quality pieces by hand. Each creation is a singular expression of artisanship and story.`;
 
