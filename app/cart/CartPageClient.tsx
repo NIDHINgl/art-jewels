@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ShoppingBag, Trash2 } from 'lucide-react';
 import { useCartStore } from '@/store/cartStore';
 import { formatPrice } from '@/lib/utils';
+import { BRAND_NAME } from '@/lib/constants';
 import CartItem from '@/components/cart/CartItem';
 import CartSummary from '@/components/cart/CartSummary';
 import CheckoutForm from '@/components/cart/CheckoutForm';
@@ -52,7 +53,7 @@ export default function CartPageClient() {
                 Your cart is empty
               </h2>
               <p className="font-accent text-base italic text-obsidian/50 leading-relaxed">
-                Each piece in the LUMORA collection is waiting to find its wearer.
+                Each piece in the {BRAND_NAME} collection is waiting to find its wearer.
               </p>
             </div>
             <PrestigeButton

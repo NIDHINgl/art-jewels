@@ -28,7 +28,7 @@ const pillars = [
   {
     icon: Clock,
     title: 'Made to Last',
-    text: 'We refuse the idea of fast jewellery. LUMORA pieces are designed to be worn for decades and passed down — heirlooms from the moment they are made.',
+    text: `We refuse the idea of fast jewellery. ${BRAND_NAME} pieces are designed to be worn for decades and passed down — heirlooms from the moment they are made.`,
   },
 ];
 

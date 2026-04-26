@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Gem, Hammer, Sparkles } from 'lucide-react';
 import { useInView } from '@/lib/hooks';
 import { MovingBorder } from '@/components/ui/moving-border';
+import { BRAND_NAME } from '@/lib/constants';
 
 const values = [
   {
@@ -33,7 +34,7 @@ function AtelierVisual() {
       {/* Real atelier image */}
       <Image
         src="/images/PHOTO-2026-03-30-00-55-52.webp"
-        alt="Artisan at work in the LUMORA atelier"
+        alt={`Artisan at work in the ${BRAND_NAME} atelier`}
         fill
         sizes="(max-width: 1024px) 100vw, 50vw"
         className="object-cover"
@@ -135,14 +136,15 @@ export default function CraftsmanshipStory() {
             <div className="w-12 h-px bg-gold/40 mb-8" aria-hidden="true" />
 
             <p className="font-accent text-lg text-white/70 leading-relaxed mb-5 italic">
-              Every LUMORA piece begins as a sketch and ends as a wearable object
-              of intention. Between those two points: fire, metal, stone, and time.
+              Every {BRAND_NAME} piece begins as a sketch and ends as a wearable
+              object of intention. Between those two points: fire, metal, stone,
+              and time.
             </p>
             <p className="font-body text-sm text-white/50 leading-relaxed mb-12">
               Our artisan works alone in a small studio — the same processes used
               for centuries, undisrupted by industrial speed. There is no batch
-              production. When you wear a LUMORA piece, you wear something made for
-              you, even if we hadn&apos;t met yet.
+              production. When you wear a {BRAND_NAME} piece, you wear something
+              made for you, even if we hadn&apos;t met yet.
             </p>
 
             <div className="grid gap-6">

@@ -1,7 +1,10 @@
-export const BRAND_NAME = 'LUMORA';
+// ─── Brand ────────────────────────────────────────────────────────────────────
+// Single source of truth for the brand name. To rename the store, change this
+// one line — every page title, meta description, footer, navbar, hero,
+// breadcrumb, and JSX reference is derived from BRAND_NAME.
+export const BRAND_NAME = 'Malli aunty jewels';
 export const BRAND_TAGLINE = 'Handcrafted Elegance, Worn with Intent';
-export const BRAND_DESCRIPTION =
-  'LUMORA is a fine art jewellery atelier crafting heirloom-quality pieces by hand. Each creation is a singular expression of artisanship and story.';
+export const BRAND_DESCRIPTION = `${BRAND_NAME} is a fine art jewellery atelier crafting heirloom-quality pieces by hand. Each creation is a singular expression of artisanship and story.`;
 
 // ─── Seller Configuration ────────────────────────────────────────────────────
 // Replace before deployment
@@ -19,31 +22,28 @@ export const SITE_OG_IMAGE = '/og-image.jpg';
 
 export const PAGE_META: Record<string, { title: string; description: string }> = {
   home: {
-    title: 'LUMORA — Handcrafted Art Jewellery',
-    description:
-      'Discover LUMORA — a curated collection of handcrafted art jewellery. Each piece is a singular expression of artisanship, made to be worn and treasured.',
+    title: `${BRAND_NAME} — Handcrafted Art Jewellery`,
+    description: `Discover ${BRAND_NAME} — a curated collection of handcrafted art jewellery. Each piece is a singular expression of artisanship, made to be worn and treasured.`,
   },
   collections: {
-    title: 'Collections — LUMORA',
-    description:
-      'Browse the complete LUMORA jewellery collection. Rings, necklaces, earrings, bracelets, anklets, and bespoke custom pieces. Handcrafted in gold, silver, and gemstone.',
+    title: `Collections — ${BRAND_NAME}`,
+    description: `Browse the complete ${BRAND_NAME} jewellery collection. Rings, necklaces, earrings, bracelets, anklets, and bespoke custom pieces. Handcrafted in gold, silver, and gemstone.`,
   },
   cart: {
-    title: 'Your Cart — LUMORA',
-    description: 'Review your selected LUMORA pieces and proceed to checkout via WhatsApp.',
+    title: `Your Cart — ${BRAND_NAME}`,
+    description: `Review your selected ${BRAND_NAME} pieces and proceed to checkout via WhatsApp.`,
   },
   wishlist: {
-    title: 'Wishlist — LUMORA',
-    description: 'Your saved LUMORA pieces.',
+    title: `Wishlist — ${BRAND_NAME}`,
+    description: `Your saved ${BRAND_NAME} pieces.`,
   },
   about: {
-    title: 'Our Story — LUMORA',
-    description:
-      'The story behind LUMORA — handcrafted jewellery made with intention, care, and artisanal precision.',
+    title: `Our Story — ${BRAND_NAME}`,
+    description: `The story behind ${BRAND_NAME} — handcrafted jewellery made with intention, care, and artisanal precision.`,
   },
   contact: {
-    title: 'Contact — LUMORA',
-    description: 'Get in touch with LUMORA for orders, custom pieces, and enquiries.',
+    title: `Contact — ${BRAND_NAME}`,
+    description: `Get in touch with ${BRAND_NAME} for orders, custom pieces, and enquiries.`,
   },
 };
 
